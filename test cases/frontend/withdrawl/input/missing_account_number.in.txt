@@ -1,0 +1,8 @@
+login user1 11111 Paula
+withdraw
+
+20
+withdraw
+100001
+
+quit

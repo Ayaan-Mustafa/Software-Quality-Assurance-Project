@@ -1,0 +1,7 @@
+login user1 11111 Paula
+transfer
+100001
+333333
+444444
+555555
+quit

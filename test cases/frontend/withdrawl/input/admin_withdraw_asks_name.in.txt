@@ -1,0 +1,6 @@
+login admin 12345 Aaron
+withdraw
+Bob
+100001
+20
+quit

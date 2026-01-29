@@ -1,0 +1,14 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> transfer
+Enter account holder name:
+>
+ERROR: Account holder name required. Please try again.
+>
+ERROR: Account holder name required. Please try again.
+>
+ERROR: Account holder name required. Exiting transer menu!
+Transfer cancelled.
+> quit
+Goodbye.

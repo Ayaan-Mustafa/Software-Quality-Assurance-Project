@@ -1,0 +1,7 @@
+login admin 12345 Aaron
+transfer
+Bob
+100001
+200002
+9999
+quit

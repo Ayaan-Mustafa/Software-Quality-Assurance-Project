@@ -1,0 +1,10 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> paybill
+Enter account holder name:
+NotAUser
+ERROR: Invalid account holder name.
+Paybill transaction cancelled.
+> quit
+Goodbye.

@@ -1,0 +1,13 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> transfer
+Enter FROM account number:
+100001
+Enter TO account number:
+200002
+Enter amount to transfer:
+1000.01
+ERROR: Amount exceeds standard transfer limit (1000.00).
+> quit
+Goodbye.

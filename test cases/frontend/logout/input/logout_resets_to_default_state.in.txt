@@ -1,0 +1,5 @@
+login user1 11111 Bob
+logout
+create-user user2 22222 Paula
+deposit 5
+quit

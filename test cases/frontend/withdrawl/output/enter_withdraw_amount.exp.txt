@@ -1,0 +1,11 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> withdraw
+Enter account number:
+100001
+Enter amount to withdraw:
+15
+Withdrawal successful. Amount: 15.00
+> quit
+Goodbye.

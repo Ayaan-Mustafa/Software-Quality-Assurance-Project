@@ -1,0 +1,16 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> deposit
+Enter account number:
+999999
+ERROR: Unauthorized account. Attempts remaining: 2
+Enter account number:
+888888
+ERROR: Unauthorized account. Attempts remaining: 1
+Enter account number:
+777777
+ERROR: Unauthorized account. Attempts remaining: 0
+Deposit cancelled.
+> quit
+Goodbye.

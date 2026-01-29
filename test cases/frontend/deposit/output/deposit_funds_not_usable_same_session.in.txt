@@ -1,0 +1,16 @@
+login user1 11111 Paula
+deposit
+100001
+200
+paybill
+100001
+Fast Internet, Inc. (FI)
+200
+transfer
+100001
+200002
+200
+withdraw
+100001
+200
+quit

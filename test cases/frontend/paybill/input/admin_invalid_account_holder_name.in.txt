@@ -1,0 +1,4 @@
+login admin 12345 Aaron
+paybill
+NotAUser
+quit

@@ -1,0 +1,9 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> paybill
+Enter account number:
+ERROR: Required input missing.
+Paybill transaction cancelled.
+> quit
+Goodbye.

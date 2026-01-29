@@ -1,0 +1,15 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> paybill
+Enter account holder name:
+Bob
+Enter account number:
+100001
+Enter company name:
+The Bright Light Electric Company (EC)
+Enter amount to pay:
+100
+Bill payment successful. Amount: 100.00
+> quit
+Goodbye.

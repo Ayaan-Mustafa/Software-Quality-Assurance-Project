@@ -1,0 +1,12 @@
+login admin 12345 Aaron
+transfer
+Paula
+100001
+200002
+10
+logout
+login user1 22222 Paula
+100001
+200002
+100
+quit

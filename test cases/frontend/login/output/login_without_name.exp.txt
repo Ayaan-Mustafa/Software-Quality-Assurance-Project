@@ -1,0 +1,5 @@
+Welcome to Banking System
+> login user1 11111
+Login successful. Role: standard.
+> quit
+Goodbye.

@@ -1,0 +1,6 @@
+login user1 11111 Paula
+paybill
+100001
+Random Power Corp
+100
+quit

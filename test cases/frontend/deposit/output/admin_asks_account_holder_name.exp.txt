@@ -1,0 +1,13 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> deposit
+Enter account holder name:
+Paula
+Enter account number:
+100001
+Enter amount to deposit:
+50
+Deposit accepted. Amount: 50.00
+> quit
+Goodbye.

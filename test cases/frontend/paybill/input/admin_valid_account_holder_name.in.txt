@@ -1,0 +1,7 @@
+login admin 12345 Aaron
+paybill
+Bob
+100001
+The Bright Light Electric Company (EC)
+100
+quit

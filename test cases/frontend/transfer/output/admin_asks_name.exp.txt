@@ -1,0 +1,24 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> transfer
+Enter account holder name:
+Paula
+Enter FROM account number:
+100001
+Enter TO account number:
+200002
+Enter amount to transfer:
+10
+Transfer successful. Amount: 10.00
+> logout
+Logout successful.
+> login user1 22222 Paula
+Enter FROM account number: 
+> 100001
+Enter TO account number:
+> 200002
+Enter amount to transfer:
+> 100
+> quit
+Goodbye.
