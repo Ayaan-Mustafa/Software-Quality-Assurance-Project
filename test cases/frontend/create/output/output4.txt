@@ -1,0 +1,1 @@
+the initial balance inputed is more than $99999.99, please try entering a lower amount

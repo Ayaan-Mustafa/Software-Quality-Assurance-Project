@@ -1,0 +1,2 @@
+Error transaction involves a disabled account
+Terminating Transaction

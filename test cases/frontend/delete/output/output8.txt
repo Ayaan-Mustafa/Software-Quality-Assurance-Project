@@ -1,0 +1,3 @@
+Delete transaction completed
+Generating log...
+Transaction logged
