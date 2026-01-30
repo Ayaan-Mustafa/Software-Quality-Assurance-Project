@@ -1,0 +1,7 @@
+Welcome to Banking System
+> deposit 50
+ERROR: Not logged in.
+> create-user user2 22222 Paula
+ERROR: Not logged in.
+> quit
+Goodbye.

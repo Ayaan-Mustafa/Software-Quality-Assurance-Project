@@ -1,0 +1,10 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> deposit 10
+Deposit successful. Amount: 10
+> logout
+Logout successful.
+Transaction log written to transactions.log
+> quit
+Goodbye.

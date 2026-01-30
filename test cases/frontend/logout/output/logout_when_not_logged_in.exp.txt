@@ -1,0 +1,5 @@
+Welcome to Banking System
+> logout
+ERROR: Not logged in.
+> quit
+Goodbye.

@@ -1,0 +1,10 @@
+Welcome to Banking System
+> login user1 11111 paula
+Login successful. Role: standard.
+> paybill
+Enter account number:
+999999
+ERROR: Invalid or unauthorized account number.
+Paybill transaction cancelled.
+> quit
+Goodbye.

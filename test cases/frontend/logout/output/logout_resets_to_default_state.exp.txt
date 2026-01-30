@@ -1,0 +1,12 @@
+Welcome to Banking System
+> login user1 11111 Bob
+Login successful. Role: standard.
+> logout
+Logout successful.
+Transaction log written to transactions.log
+> create-user user2 22222 Paula
+ERROR: Not logged in.
+> deposit 5
+ERROR: Not logged in.
+> quit
+Goodbye.

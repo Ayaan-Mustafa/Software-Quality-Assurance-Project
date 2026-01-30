@@ -1,0 +1,14 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> paybill
+Enter account number:
+100001
+Enter company name:
+Credit Card Company Q (CQ)
+Enter amount to pay:
+2001
+ERROR: Amount exceeds maximum payment limit (2000.00).
+Paybill transaction cancelled.
+> quit
+Goodbye.

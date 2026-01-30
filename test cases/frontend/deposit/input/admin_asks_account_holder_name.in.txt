@@ -1,0 +1,6 @@
+login admin 12345 Aaron
+deposit
+Paula
+100001
+50
+quit

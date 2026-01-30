@@ -1,0 +1,33 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> deposit
+Enter account number:
+100001
+Enter amount to deposit:
+200
+Deposit accepted. Amount: 200.00
+> paybill
+Enter account number:
+100001
+Enter company name:
+Fast Internet, Inc. (FI)
+Enter amount to pay:
+200
+ERROR: Deposited funds are not available until next session.
+> transfer
+Enter FROM account number:
+100001
+Enter TO account number:
+200002
+Enter amount to transfer:
+200
+ERROR: Deposited funds are not available until next session.
+> withdraw
+Enter account number:
+100001
+Enter amount to withdraw:
+200
+ERROR: Deposited funds are not available until next session.
+> quit
+Goodbye.

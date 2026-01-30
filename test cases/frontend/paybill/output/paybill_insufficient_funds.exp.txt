@@ -1,0 +1,14 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> paybill
+Enter account number:
+100001
+Enter company name:
+The Bright Light Electric Company (EC)
+Enter amount to pay:
+1600
+ERROR: Insufficient funds.
+Paybill transaction cancelled.
+> quit
+Goodbye.

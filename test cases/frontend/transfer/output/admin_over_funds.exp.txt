@@ -1,0 +1,15 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> transfer
+Enter account holder name:
+Bob
+Enter FROM account number:
+100001
+Enter TO account number:
+200002
+Enter amount to transfer:
+9999
+ERROR: Insufficient funds.
+> quit
+Goodbye.

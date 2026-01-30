@@ -1,0 +1,4 @@
+login admin 12345 Aaron
+create-user user2 22222 Paula
+delete-user user2 22222 Paula
+quit

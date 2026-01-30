@@ -1,0 +1,9 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> create-user user2 22222 Alice
+User created successfully.
+>delete-user user2 22222 Paula
+User deleted successfully.
+> quit
+Goodbye.

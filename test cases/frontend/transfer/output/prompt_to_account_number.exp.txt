@@ -1,0 +1,13 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> transfer
+Enter FROM account number:
+100001
+Enter TO account number:
+200002
+Enter amount to transfer:
+1
+Transfer successful. Amount: 1.00
+> quit
+Goodbye.

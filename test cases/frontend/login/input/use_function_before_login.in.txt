@@ -1,0 +1,3 @@
+deposit 50
+create-user user2 22222 Paula
+quit

@@ -1,0 +1,13 @@
+Welcome to Banking System
+> login admin 12345 Aaron
+Login successful. Role: admin.
+> withdraw
+Enter account holder name:
+Bob
+Enter account number:
+100001
+Enter amount to withdraw:
+20
+Withdrawal successful. Amount: $20.00
+> quit
+Goodbye.

@@ -1,0 +1,9 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> transfer
+Enter FROM account number:
+ERROR: Account number required.
+Transfer cancelled.
+> quit
+Goodbye.

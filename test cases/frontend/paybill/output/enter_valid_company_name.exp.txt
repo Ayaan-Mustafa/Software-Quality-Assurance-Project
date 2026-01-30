@@ -1,0 +1,13 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> paybill
+Enter account number:
+100001
+Enter company name:
+Fast Internet, Inc. (FI)
+Enter amount to pay:
+75
+Bill payment successful. Amount: 75.00
+> quit
+Goodbye.

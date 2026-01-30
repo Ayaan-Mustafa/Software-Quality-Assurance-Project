@@ -1,0 +1,18 @@
+Welcome to Banking System
+> login user1 11111 Paula
+Login successful. Role: standard.
+> transfer
+Enter FROM account number:
+100001
+Enter TO account number:
+333333
+ERROR: Destination account not found. Attempts remaining: 2
+Enter TO account number:
+444444
+ERROR: Destination account not found. Attempts remaining: 1
+Enter TO account number:
+555555
+ERROR: Destination account not found. Attempts remaining: 0
+Transfer cancelled.
+> quit
+Goodbye.

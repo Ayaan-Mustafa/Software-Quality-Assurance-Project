@@ -1,0 +1,6 @@
+login user1 11111 Paula
+deposit
+100001
+20
+logout
+quit
