@@ -11,7 +11,7 @@ class User:
         self.accounts = accounts
 
     #Creates a User that doesn't have an account yet
-    def User(self,name,pin):
+    def __init__(self,name,pin):
         self.name = name
         self.pin = pin
         self.accounts = []

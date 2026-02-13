@@ -76,8 +76,7 @@ class ATM:
             print("ERROR: not logged in.")
             return
 
-        # TODO Write to transaction file
-        # self.make_output_file()
+        self.make_output_file()
 
         # Reset session state
         self.is_logged_in = False
@@ -521,14 +520,6 @@ class ATM:
         print(f"Saved to: {full_file_path}")
 
         return
-        
-        ###
-        #This is if we want to just print everything into the one transactions.txt file
-        #with open("transactions.txt", "w") as file:
-        #    for transaction in self.transactions:
-        #        file.write(transaction + "\n")
-        #return
-        ###
     
     def load_accounts(self):
         # open accounts file
