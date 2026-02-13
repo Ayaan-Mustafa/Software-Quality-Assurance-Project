@@ -1,0 +1,53 @@
+@startuml ATM_System
+skinparam classAttributeIconSize 0
+
+class User {
+  + name : str
+  + pin : str
+  + acounts : list
+  --
+  + User(name, pin, accounts)
+  + User(name, pin)
+  + list_accounts()
+  + add_account(new_account)
+}
+
+class Account {
+  + name : str
+  + number : str
+  + balance : float
+  + plan : str
+  + enabled : str
+  --
+  + Account(name, number, balance, plan, enabled)
+  + __str__()
+}
+
+class ATM {
+  - is_admin : bool
+  - is_logged_in : bool
+  - users : list
+  - current_user : User
+  - transactions : list
+  --
+  + ATM()
+  + login()
+  + logout()
+  + main_menu()
+  + withdraw()
+  + deposit()
+  + transfer()
+  + paybill()
+  + create()
+  + delete()
+  + disable()
+  + changeplan()
+  + make_output_file()
+  + load_accounts()
+}
+
+ATM "1" o-- "0..*" User
+ATM "0..1" --> User
+User "1" o-- "0..*" Account
+
+@enduml
