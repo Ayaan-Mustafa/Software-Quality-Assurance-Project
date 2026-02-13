@@ -1,4 +1,5 @@
 # ATM definition
+import sys
 import re
 import os
 from datetime import datetime
@@ -20,6 +21,10 @@ class ATM:
     # --- Core Logic ---
 
     def login(self):
+        # print users FOR TESTING PURPOSES
+        for user in self.users:
+            print(user)
+        
         # check if the user is logging in as admin
         check_admin = True
         while (check_admin):
@@ -28,17 +33,17 @@ class ATM:
             
             # if user is admin set is_admin as true and break loop
             if (session == "Y"):
-                is_admin = True
+                self.is_admin = True
                 check_admin = False
             # if the user is not admin break loop
-            elif (session.casefold == "n"):
+            elif (session.casefold() == "n"):
                 check_admin = False
             # if user entered incorrect input ask again
             else:
                 print("Error Inavalid Input")
         
         # if the user is admin skip asking for name
-        if (is_admin):
+        if (self.is_admin):
             print("Logging in as admin")
             self.is_logged_in = True
             return
@@ -80,6 +85,17 @@ class ATM:
         self.current_user = None
 
         print("Session ended. Logged out successfully.")
+        check_exit = True
+        while (check_exit):
+            ans = input("Do you wish to exit the program (Y/n)?: ")
+            
+            if (ans == "Y"):
+                sys.exit()
+            elif (ans.casefold() == "n"):
+                return
+            else:
+                print("Error invalid input")
+                
     
     def main_menu(self):
         # main menu loop
@@ -516,7 +532,7 @@ class ATM:
     
     def load_accounts(self):
         # open accounts file
-        with open("accounts") as file:
+        with open("accounts.txt") as file:
             # skip first line
             next(file)
             

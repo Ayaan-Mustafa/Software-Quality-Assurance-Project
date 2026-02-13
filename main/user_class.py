@@ -5,7 +5,7 @@ class User:
     acounts = []
 
     #Creates a User including an account
-    def User(self,name,pin,accounts):
+    def __init__(self,name,pin,accounts):
         self.name = name
         self.pin = pin
         self.accounts = accounts
@@ -25,3 +25,7 @@ class User:
     def add_account(self, new_account):
         self.accounts.append(new_account)
     
+    def __str__(self):
+        return (f"name: {self.name}\n"
+                f"pin : {self.pin}\n"
+                f"accounts:\n {self.accounts}")

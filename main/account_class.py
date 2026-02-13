@@ -14,7 +14,7 @@ class Account:
     enabled = True
     
     # Parameterized constructor
-    def Account (self, name, number, balance, plan, enabled):
+    def __init__(self, name, number, balance, plan, enabled):
         self.name = name
         self.number = number
         self.balance = balance
@@ -23,8 +23,8 @@ class Account:
     
     # Overload __str__
     def __str__(self):
-        return f"""name: {self.name}
-    number: {self.number}
-    balance: {self.balance}
-    plan: {self.plan}
-    enabled: {self.enabled}"""
+        return (f"name: {self.name}\n"
+                f"number: {self.number}\n"
+                f"balance: {self.balance}\n"
+                f"plan: {self.plan}\n"
+                f"enabled: {self.enabled}\n")
