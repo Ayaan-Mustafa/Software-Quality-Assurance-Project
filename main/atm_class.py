@@ -5,43 +5,55 @@ from  account_class import Account
 
 class ATM:    
     def ATM(self):
-        self.is_admin = False
-        self.is_logged_in = False
-        self.users = []
-        self.current_user = None
+        self.is_admin = False       # true if in admin mode
+        self.is_logged_in = False   # true if logged in
+        self.users = []             # list of all users in system
+        self.current_user = None    # the current user, if admin should be none
+        self.transactions = []      # list of all proccessed trasactions in current session
     
     def login(self):
+        # check if the user is logging in as admin
         check_admin = True
         while (check_admin):
+            # user input
             session = input("Is this an admin session (Y/n)?: ")
             
+            # if user is admin set is_admin as true and break loop
             if (session == "Y"):
                 is_admin = True
                 check_admin = False
+            # if the user is not admin break loop
             elif (session.casefold == "n"):
                 check_admin = False
+            # if user entered incorrect input ask again
             else:
                 print("Error Inavalid Input")
         
+        # if the user is admin skip asking for name
         if (is_admin):
             print("Logging in as admin")
             self.is_logged_in = True
             return
         
+        # get the current non-admin user
         check_user = True
-        
         while (check_user):
+            # user input
             name = input("Please enter user name: ")
             
+            # check user input against all users in system
             for user in self.users:
+                # if names match, set that user as current user
                 if (user.name == name):
                     check_user = False
                     self.current_user = user
                     break
             
+            # if the user was not found ask again
             if (check_user):
                 print("Error incorrect user name")
-                
+        
+        # set logged in to true and print welcome message
         self.is_logged_in = True
         print (f"Welcome {self.current_user.name}!")
     
@@ -49,13 +61,16 @@ class ATM:
         pass
     
     def main_menu(self):
+        # main menu loop
         while(True):
+            # print meny
             print("------ATM SYSTEM-----")
             print("1. Withdraw")
             print("2. Deposit")
             print("3. Transfer")
             print("4. Paybill")
             
+            # display admin options only if admin
             if (self.is_admin):
                 print("5. Create Account")
                 print("6. Delete Account")
@@ -63,9 +78,11 @@ class ATM:
                 print("8. Change Account Plan")
             
             print("Q. Logout")
-                
+            
+            # user input
             choice = input("Please enter your chosen operation: ")
             
+            # match input to choice
             if (choice == "1"):
                 self.withdraw()
             elif (choice == "2"):
@@ -116,18 +133,24 @@ class ATM:
         pass
     
     def load_accounts(self):
+        # open accounts file
         with open("accounts") as file:
+            # skip first line
             next(file)
             
+            # read each line
             for line in file:
+                # skip last line
                 if (line == "00000_END_OF_FILE__________D_00000000"):
                     break
                 
+                # slice each line
                 number = line[:5]
                 name = line[6:26]
                 status = line[27:28]
                 balance = line[29:]
                 
+                # trim off leading 0 of number
                 first_index = -1
                 match = re.search(r'[^0]', number)
                 if match:
@@ -135,10 +158,12 @@ class ATM:
                 
                 number = number[first_index:]
                 
+                # remove and replace trailing underscores of name
                 name = re.sub(r'([_])\1+', r'\1', name,)
                 name = name.replace("_", " ")
                 name = name.strip()
                 
+                # trim off leading zeros of balance
                 first_index = -1
                 match = re.search(r'[^0]', balance)
                 if match:
@@ -146,14 +171,20 @@ class ATM:
                     
                 balance = balance[first_index:]
                 
+                # create account object
                 account = Account(name, number, balance, "NP", status)
                 
+                # check if the user the account belongs to is in the users list
                 in_list = False
                 for user in self.users:
+                    # if they are add the account to their list of acounts
                     if user.name == name:
                         user.accounts.append(account)
                         in_list = True
                         break
-                    
+                
+                # if user is not in the list add them with the account
                 if (not in_list):
                     self.users.append(User(name, "", [account]))
+        
+        
