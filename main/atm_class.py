@@ -1,5 +1,7 @@
 # ATM definition
 import re
+import os
+from datetime import datetime
 from user_class import User
 from  account_class import Account
 
@@ -480,9 +482,37 @@ class ATM:
         # handle account not found
         print("ERROR: account not found for that user.")
     
-    # TODO? Maybe?
     def make_output_file(self):
-        pass
+        
+        self.write_log(code="00", name="____________________",number="_____",funds="00000000",misc="NA")
+
+        #This is if we want it to create a new file for each log out, this will name the files based on the date and time 
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        folder_path = os.path.join(script_dir, "transactions")
+
+        #This creates a folder, in case we dont want to push a full folder of transactions to github
+        os.makedirs(folder_path, exist_ok=True)
+
+        now = datetime.now()
+        filename = now.strftime("transactions_%Y-%m-%d_%H-%M-%S.txt")
+
+        full_file_path = os.path.join(folder_path, filename)
+
+        with open(full_file_path, "w") as file:
+            for transaction in self.transactions:
+                file.write(transaction + "\n")
+
+        print(f"Saved to: {full_file_path}")
+
+        return
+        
+        ###
+        #This is if we want to just print everything into the one transactions.txt file
+        #with open("transactions.txt", "w") as file:
+        #    for transaction in self.transactions:
+        #        file.write(transaction + "\n")
+        #return
+        ###
     
     def load_accounts(self):
         # open accounts file
