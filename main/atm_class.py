@@ -3,14 +3,29 @@ import re
 from user_class import User
 from  account_class import Account
 
-class ATM:    
+class ATM:  
+
+    def __init__(self):
+        self.ATM()
+
     def ATM(self):
         self.is_admin = False       # true if in admin mode
         self.is_logged_in = False   # true if logged in
         self.users = []             # list of all users in system
         self.current_user = None    # the current user, if admin should be none
         self.transactions = []      # list of all proccessed trasactions in current session
+
+    # --- Helpers ---
+    # Check to see if the user is logged in. If yes return true, if not return false.
+    def _require_login(self) -> bool:
+        if not self.is_logged_in:
+            print("ERROR: you must login first.")
+            return False
+        return True
     
+
+    # --- Core Logic ---
+
     def login(self):
         # check if the user is logging in as admin
         check_admin = True
@@ -55,10 +70,23 @@ class ATM:
         
         # set logged in to true and print welcome message
         self.is_logged_in = True
-        print (f"Welcome {self.current_user.name}!")
+        print(f"Welcome {self.current_user.name}!")
     
+    # Logout function which writes log, resets session, returns to reloggin screen.
     def logout(self):
-        pass
+        if not self.is_logged_in:
+            print("ERROR: not logged in.")
+            return
+
+        # TODO Write to transaction file
+        # self.make_output_file()
+
+        # Reset session state
+        self.is_logged_in = False
+        self.is_admin = False
+        self.current_user = None
+
+        print("Session ended. Logged out successfully.")
     
     def main_menu(self):
         # main menu loop
