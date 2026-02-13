@@ -214,7 +214,7 @@ class ATM:
             return
 
         # Get the account
-        account = self.get_account()
+        account = self.get_current_user_account()
 
         # Make sure its not disabled
         if self._is_account_disabled(account):
@@ -253,7 +253,7 @@ class ATM:
 
         # Select the from account
         print("Select FROM account:")
-        from_account = self.get_account()
+        from_account = self.get_current_user_account()
 
         # Make sure the account isnt disabled
         if self._is_account_disabled(from_account):
@@ -312,7 +312,7 @@ class ATM:
             return
 
         # get the account
-        account = self.get_account()
+        account = self.get_current_user_account()
 
         # make sure its not disabled
         if self._is_account_disabled(account):
@@ -542,7 +542,7 @@ class ATM:
 
     def load_accounts(self):
         # open accounts file
-        with open("accounts.txt") as file:
+        with open("main/accounts.txt") as file:
             # skip first line
             next(file)
 
