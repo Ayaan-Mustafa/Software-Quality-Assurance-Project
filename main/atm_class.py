@@ -10,14 +10,16 @@ from account_class import Account
 class ATM:
 
     def __init__(self):
-        self.ATM()
-
-    def ATM(self):
-        self.is_admin = False       # true if in admin mode
-        self.is_logged_in = False   # true if logged in
-        self.users = []             # list of all users in system
-        self.current_user = None    # the current user, if admin should be none
-        self.transactions = []      # list of all proccessed trasactions in current session
+        # true if in admin mode
+        self.is_admin = False
+        # true if logged in
+        self.is_logged_in = False
+        # list of all users in system
+        self.users = []
+        # the current user, if admin should be none
+        self.current_user = None
+        # list of all proccessed trasactions in current session
+        self.transactions = []
 
     # --- Core Logic ---
 
@@ -129,13 +131,13 @@ class ATM:
                 self.transfer()
             elif (choice == "4"):
                 self.paybill
-            elif (choice == "5" and self.is_admin == True):
+            elif (choice == "5" and self.is_admin):
                 self.create()
-            elif (choice == "6" and self.is_admin == True):
+            elif (choice == "6" and self.is_admin):
                 self.delete()
-            elif (choice == "7" and self.is_admin == True):
+            elif (choice == "7" and self.is_admin):
                 self.disable()
-            elif (choice == "8" and self.is_admin == True):
+            elif (choice == "8" and self.is_admin):
                 self.changeplan()
             elif (choice == "Q"):
                 self.logout()
@@ -181,10 +183,12 @@ class ATM:
                         # loop over holder's accounts
                         for j in range(len(self.users[i].accounts)):
                             # if the accounts matches
-                            if (self.users[i].accounts[j].number == account.number):
+                            if (self.users[i].accounts[j].number
+                                    == account.number):
                                 # print transaction
-                                print(
-                                    f"{account.balance} - {amount} = {new_balance}")
+                                print(f"{account.balance}"
+                                      f"- {amount}"
+                                      f"= {new_balance}")
                                 # change the account balance
                                 self.users[i].accounts[j].balance = new_balance
                                 # print message
@@ -289,8 +293,9 @@ class ATM:
         from_account.balance = int(from_account.balance) - amount
         to_account.balance = int(to_account.balance) + amount
 
-        print(
-            f"Transfer successful: {amount} from {from_account.number} to {to_account.number}")
+        print(f"Transfer successful: {amount}"
+              f"from {from_account.number}"
+              f"to {to_account.number}")
 
         # Write log, funds = amount moved, misc = destination account
         self.write_log(code="02",

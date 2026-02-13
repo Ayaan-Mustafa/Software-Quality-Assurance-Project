@@ -11,10 +11,10 @@ class User:
         self.accounts = accounts
 
     # Creates a User that doesn't have an account yet
-    def __init__(self, name, pin):
-        self.name = name
-        self.pin = pin
-        self.accounts = []
+    # def __init__(self, name, pin):
+    #     self.name = name
+    #     self.pin = pin
+    #     self.accounts = []
 
     # Lists all the accounts for the user using its own tostring function
     def list_accounts(self):
