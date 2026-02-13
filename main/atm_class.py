@@ -132,15 +132,15 @@ class ATM:
             return
 
         # get the account to withdraw from
-        selected_account = self.get_current_user_account()
+        account = self.get_current_user_account()
 
         # Make sure its not disabled
-        if self._is_account_disabled(selected_account):
+        if self._is_account_disabled(account):
             print("ERROR: account is disabled.")
             return
 
         # print current balance
-        print(f"Current account balance: ${selected_account.balance}")
+        print(f"Current account balance: ${account.balance}")
         
         # init input variable
         amount = ""
@@ -152,27 +152,27 @@ class ATM:
             amount = int(amount)
             
             # if the ammount is valid
-            if (amount > 0 and amount <= 500 and amount <= selected_account.balance):
+            if (amount > 0 and amount <= 500 and amount <= account.balance):
                 # calculate new account balance
-                new_balance = selected_account.balance - amount
+                new_balance = account.balance - amount
                 
                 # loop over users to find account holder
                 for i in range(len(self.users)):
-                    if (self.user[i].name == selected_account.name):
+                    if (self.user[i].name == account.name):
                         # loop over holder's accounts
                         for j in range(len(self.users[i].accounts)):
                             # if the accounts matches
-                            if (self.users[i].accounts[j].number == selected_account.number):
+                            if (self.users[i].accounts[j].number == account.number):
                                 # print transaction
-                                print(f"{selected_account.balance} - {amount} = {new_balance}")
+                                print(f"{account.balance} - {amount} = {new_balance}")
                                 # change the account balance
                                 self.users[i].accounts[j].balance = new_balance
                                 # print message
                                 print("withdraw succesful")
                                 # log transaction
                                 self.write_log(code="01",
-                                               name=selected_account.name, 
-                                               number=selected_account.number, 
+                                               name=account.name, 
+                                               number=account.number, 
                                                funds=str(new_balance), 
                                                misc="NA")
                                 # exit
@@ -579,10 +579,10 @@ class ATM:
         return True
     
     # Find any users account based on the number
-    def global_find_account_by_number(self, acct_number: str):
+    def global_find_account_by_number(self, account_number: str):
         for user in self.users:
             for account in user.accounts:
-                if account.number == acct_number:
+                if account.number == account_number:
                     return account
         return None
         
