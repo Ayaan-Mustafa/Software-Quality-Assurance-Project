@@ -106,7 +106,50 @@ class ATM:
             
     
     def withdraw(self):
-        pass
+        # get the account to withdraw from
+        selected_account = self.get_account()
+        # print current balance
+        print(f"Current account balance: ${selected_account.balance}")
+        
+        # init input variable
+        amount = ""
+        # loop condition
+        check_amount = True
+        while (check_amount):
+            # user input
+            amount = input("Enter amount to withdraw: ")
+            amount = int(amount)
+            
+            # if the ammount is valid
+            if (amount > 0 and amount <= 500 and amount <= selected_account.balance):
+                # calculate new account balance
+                new_balance = selected_account.balance - amount
+                
+                # loop over users to find account holder
+                for i in range(len(self.users)):
+                    if (self.user[i].name == selected_account.name):
+                        # loop over holder's accounts
+                        for j in range(len(self.users[i].accounts)):
+                            # if the accounts matches
+                            if (self.users[i].accounts[j].number == selected_account.number):
+                                # print transaction
+                                print(f"{selected_account.balance} - {amount} = {new_balance}")
+                                # change the account balance
+                                self.users[i].accounts[j].balance = new_balance
+                                # print message
+                                print("withdraw succesful")
+                                # log transaction
+                                self.write_log(code="01",
+                                               name=selected_account.name, 
+                                               number=selected_account.number, 
+                                               funds=str(new_balance), 
+                                               misc="NA")
+                                # exit
+                                return
+            # otherwise print error message
+            else:
+                print("Error enter a valid amount")
+            
     
     def deposit(self):
         pass
@@ -187,4 +230,78 @@ class ATM:
                 if (not in_list):
                     self.users.append(User(name, "", [account]))
         
+    def get_account(self):
+        # selected account is the account to return
+        selected_account = None
+        # selected user is the user who the account belongs to
+        # by default the current user
+        selected_user = self.current_user
+        # name of the account holder (only needed if admin)
+        name = ""
+        
+        # if admin get the name of the user
+        if (self.is_admin):
+            # loop condition
+            check_name = True
+            
+            # ask for name until valid name is inputed
+            while (check_name):
+                # user input
+                name = input("Enter name of account holder")
+                
+                # check if user is in list
+                for user in self.users:
+                    # if the user is in the list
+                    if (user.name == name):
+                        # set the selected user
+                        selected_user = user
+                        # set the loop condition to false
+                        check_name = False
+                        # break the loop
+                        break
+                
+                # error message
+                if (check_name):
+                    print("Error incorrect user name")
+        
+        # account number
+        number = ""
+        # loop condition
+        check_number = True
+        
+        # ask for account number until valid number is inputed
+        while (check_number):
+            # user inpu
+            number = input("Enter the account number")
+            
+            # loop over acconts held by user
+            for account in selected_user.accounts:
+                # if the user has the account that matches the number
+                if (account.number == number):
+                    # set selected account
+                    selected_account = account
+                    # set loop condition to false
+                    check_number = False
+                    # break the loop
+                    break
+
+            # error message
+            if (check_number):
+                print("Error incorrect account number")
+        
+        # return the selected account
+        return selected_account
+    
+    # method that writes a string representing a transaction
+    # and adds it to the transaction list
+    def write_log(self, code, name, number, funds, misc):
+        # write log string
+        log = code + "_"
+        log = log + "{:<20}".format(name) + "_"
+        log = log + number + "_"
+        log = log + funds + "_"
+        log = log + misc
+        
+        # add log string to transaction list
+        self.transactions.append(log)
         
