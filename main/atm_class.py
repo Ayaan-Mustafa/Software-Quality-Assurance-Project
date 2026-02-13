@@ -15,15 +15,6 @@ class ATM:
         self.current_user = None    # the current user, if admin should be none
         self.transactions = []      # list of all proccessed trasactions in current session
 
-    # --- Helpers ---
-    # Check to see if the user is logged in. If yes return true, if not return false.
-    def _require_login(self) -> bool:
-        if not self.is_logged_in:
-            print("ERROR: you must login first.")
-            return False
-        return True
-    
-
     # --- Core Logic ---
 
     def login(self):
@@ -133,9 +124,21 @@ class ATM:
                 print("Error invalid selection")
             
     
+    # User withdraw money from own account
     def withdraw(self):
+
+        # make sure the user is logged in
+        if not self._require_login():
+            return
+
         # get the account to withdraw from
-        selected_account = self.get_account()
+        selected_account = self.get_current_user_account()
+
+        # Make sure its not disabled
+        if self._is_account_disabled(selected_account):
+            print("ERROR: account is disabled.")
+            return
+
         # print current balance
         print(f"Current account balance: ${selected_account.balance}")
         
@@ -179,27 +182,305 @@ class ATM:
                 print("Error enter a valid amount")
             
     
+    # Deposit money into an account owned by the user
     def deposit(self):
-        pass
+        
+        # Make sure the user is logged in
+        if not self._require_login():
+            return
+
+        # Get the account
+        account = self.get_account()
+        
+        # Make sure its not disabled
+        if self._is_account_disabled(account):
+            print("ERROR: account is disabled.")
+            return
+
+        # make sure amount was positive
+        amount = self._validate_positive_int("Enter amount to deposit: ")
+        if amount is None:
+            return
+
+        # Update the balance
+        old_balance = int(account.balance)
+        new_balance = old_balance + amount
+        account.balance = new_balance
+
+        #Print balance
+        print(f"{old_balance} + {amount} = {new_balance}")
+        #Print deposit success
+        print("Deposit successful")
+
+        #Log
+        self.write_log(code="04",
+                    name=account.name,
+                    number=account.number,
+                    funds=str(amount),
+                    misc="NA")
     
+
+    #Transfer money from one account to another
     def transfer(self):
-        pass
+        
+        # Ensure the user is logged in
+        if not self._require_login():
+            return
+
+        #Select the from account
+        print("Select FROM account:")
+        from_account = self.get_account()
+
+        # Make sure the account isnt disabled
+        if self._is_account_disabled(from_account):
+            print("ERROR: FROM account is disabled.")
+            return
+
+        # get the to account
+        to_account_num = input("Enter TO account number: ").strip()
+        to_account = self._find_account_by_number(to_account_num)
+
+        #Make sure the account exists
+        if to_account is None:
+            print("ERROR: TO account not found.")
+            return
+        
+        # Make sure the TO account is not disabled
+        if self._is_account_disabled(to_account):
+            print("ERROR: TO account is disabled.")
+            return
+
+        # Get the amount for transfer
+        amount = self._validate_positive_int("Enter amount to transfer: ")
+        if amount is None:
+            return
+
+        # Transfer cap
+        if (not self.is_admin) and amount > 1000:
+            print("ERROR: standard transfer max is $1000.")
+            return
+
+        # Make sure there is enough in the account
+        if amount > int(from_account.balance):
+            print("ERROR: insufficient funds.")
+            return
+
+        # Update the accounts money
+        from_account.balance = int(from_account.balance) - amount
+        to_account.balance = int(to_account.balance) + amount
+
+        print(f"Transfer successful: {amount} from {from_account.number} to {to_account.number}")
+
+        # Write log, funds = amount moved, misc = destination account
+        self.write_log(code="02",
+                    name=from_account.name,
+                    number=from_account.number,
+                    funds=str(amount),
+                    misc=to_account.number)
     
+    # Pay a bill from a selected account
     def paybill(self):
-        pass
+
+        # make sure the user is logged in
+        if not self._require_login():
+            return
+
+        # get the account
+        account = self.get_account()
+
+        # make sure its not disabled
+        if self._is_account_disabled(account):
+            print("ERROR: account is disabled.")
+            return
+
+        # Enter the company code
+        company = input("Enter company code (EC/CQ/FI): ").strip().upper()
+        # Validate entry
+        if company not in ("EC", "CQ", "FI"):
+            print("ERROR: invalid company code.")
+            return
+
+        # Get the amount and ensure positive
+        amount = self._validate_positive_int("Enter amount to pay: ")
+        if amount is None:
+            return
+
+        # Make sure under max for bill
+        if amount > 2000:
+            print("ERROR: max paybill is $2000.")
+            return
+
+        # Make sure there is enough money in the account
+        if amount > int(account.balance):
+            print("ERROR: insufficient funds.")
+            return
+
+        # Update the account balance
+        account.balance = int(account.balance) - amount
+        #Output success
+        print(f"Paybill successful: {amount} to {company} from {account.number}")
+
+        #write log
+        self.write_log(code="03",
+                    name=account.name,
+                    number=account.number,
+                    funds=str(amount),
+                    misc=company)
     
+    
+    # Admin only function to create an account for a user (both new or existing)
     def create(self):
-        pass
+
+        # Make sure the user is an admin
+        if not self._require_admin():
+            return
+
+        # Get the account holder name, account num and plan
+        name = input("Enter account holder name: ").strip()
+        number = input("Enter new account number: ").strip()
+        plan = input("Enter plan (NP/SP): ").strip().upper()
+
+        # Validate plan
+        if plan not in ("NP", "SP"):
+            print("ERROR: invalid plan.")
+            return
+
+        # Ensure account number is unique
+        if self._find_account_by_number(number) is not None:
+            print("ERROR: account number already exists.")
+            return
+
+        # Enter the initial balance (must be positive)
+        balance = self._validate_positive_int("Enter initial balance: ")
+        if balance is None:
+            return
+
+        # make the new account
+        new_account = Account(name, number, balance, plan, True)
+
+        # attach to existing user or create new user
+        for user in self.users:
+            if user.name == name:
+                user.accounts.append(new_account)
+                print("Account created successfully.")
+                self.write_log(code="05", name=name, number=number, funds=str(balance), misc=plan)
+                return
+            
+        # otherwise make a new user
+        self.users.append(User(name, "", [new_account]))
+        print("Account created successfully.")
+        #Log
+        self.write_log(code="05", name=name, number=number, funds=str(balance), misc=plan)
     
+    # Admin only function to delete a users account
     def delete(self):
-        pass
+        
+        # Ensure the user is an admin
+        if not self._require_admin():
+            return
+
+        # get the name and account number for the account
+        name = input("Enter account holder name: ").strip()
+        number = input("Enter account number to delete: ").strip()
+
+        # find the user
+        target_user = None
+        for user in self.users:
+            if user.name == name:
+                target_user = user
+                break
+
+        # Handle no user found
+        if target_user is None:
+            print("ERROR: unknown account holder.")
+            return
+
+        # remove the account
+        for i, account in enumerate(target_user.accounts):
+            if account.number == number:
+                del target_user.accounts[i]
+                print("Account deleted successfully.")
+                #Log
+                self.write_log(code="06", name=name, number=number, funds="0", misc="NA")
+                return
+
+        print("ERROR: account not found for that user.")
     
+    # Admin only function to disable an account
     def disable(self):
-        pass
-    
+        
+        # Ensure the user is an admin
+        if not self._require_admin():
+            return
+
+        # get the account name and number
+        name = input("Enter account holder name: ").strip()
+        number = input("Enter account number to disable: ").strip()
+
+        # find the user
+        target_user = None
+        for user in self.users:
+            if user.name == name:
+                target_user = user
+                break
+
+        # Handle user not found
+        if target_user is None:
+            print("ERROR: unknown account holder.")
+            return
+
+        # Disable the account
+        for acct in target_user.accounts:
+            if acct.number == number:
+                acct.enabled = False
+                print("Account disabled successfully.")
+                #Log
+                self.write_log(code="07", name=name, number=number, funds="0", misc="NA")
+                return
+
+        print("ERROR: account not found for that user.")
+
+    # Admin only function to change the account plan
     def changeplan(self):
-        pass
+
+        # Ensure user is an admin
+        if not self._require_admin():
+            return
+
+        # Get the name for account, account number and the new plan
+        name = input("Enter account holder name: ").strip()
+        number = input("Enter account number: ").strip()
+        new_plan = input("Enter new plan (NP/SP): ").strip().upper()
+
+        # Validate account plan given
+        if new_plan not in ("NP", "SP"):
+            print("ERROR: invalid plan.")
+            return
+
+        # find the user
+        target_user = None
+        for user in self.users:
+            if user.name == name:
+                target_user = user
+                break
+
+        # Handle user not found
+        if target_user is None:
+            print("ERROR: unknown account holder.")
+            return
+
+        # Change the plan for the account
+        for acct in target_user.accounts:
+            if acct.number == number:
+                acct.plan = new_plan
+                print("Plan changed successfully.")
+                self.write_log(code="08", name=name, number=number, funds="0", misc=new_plan)
+                return
+
+        # handle account not found
+        print("ERROR: account not found for that user.")
     
+    # TODO? Maybe?
     def make_output_file(self):
         pass
     
@@ -219,6 +500,7 @@ class ATM:
                 number = line[:5]
                 name = line[6:26]
                 status = line[27:28]
+                enabled = (status == "A")
                 balance = line[29:]
                 
                 # trim off leading 0 of number
@@ -243,7 +525,7 @@ class ATM:
                 balance = balance[first_index:]
                 
                 # create account object
-                account = Account(name, number, balance, "NP", status)
+                account = Account(name, number, balance, "NP", enabled)
                 
                 # check if the user the account belongs to is in the users list
                 in_list = False
@@ -257,8 +539,54 @@ class ATM:
                 # if user is not in the list add them with the account
                 if (not in_list):
                     self.users.append(User(name, "", [account]))
+
+
+
+
+    # --- Helpers ---
+
+    # Check to see if the user is logged in. If yes return true, if not return false.
+    def _require_login(self) -> bool:
+        if not self.is_logged_in:
+            print("ERROR: you must login first.")
+            return False
+        return True
+    
+    # Valiidation to ensure money is strictly > 0
+    def _validate_positive_int(self, prompt: str):
+        string = input(prompt).strip()
+        try:
+            amount = int(string)
+        except ValueError:
+            print("ERROR: invalid amount.")
+            return None
+        if amount <= 0:
+            print("ERROR: amount must be > 0.")
+            return None
+        return amount
+
+    # Checks if account is disabled. True = Yes, False = no
+    def _is_account_disabled(self, account) -> bool:
+        return not account.enabled
+
+    # Helper function to ensure the user is an admin (useful before admin functions)
+    def _require_admin(self) -> bool:
+        if not self._require_login():
+            return False
+        if not self.is_admin:
+            print("ERROR: admin only.")
+            return False
+        return True
+    
+    # Find any users account based on the number
+    def global_find_account_by_number(self, acct_number: str):
+        for user in self.users:
+            for account in user.accounts:
+                if account.number == acct_number:
+                    return account
+        return None
         
-    def get_account(self):
+    def get_current_user_account(self):
         # selected account is the account to return
         selected_account = None
         # selected user is the user who the account belongs to
