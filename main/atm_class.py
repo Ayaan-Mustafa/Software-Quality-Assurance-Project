@@ -32,14 +32,14 @@ class ATM:
         check_admin = True
         while (check_admin):
             # user input
-            session = input("Is this an admin session (Y/n)?: ")
+            session = input("Is this an admin session (Y/n)?: ").lower()
 
             # if user is admin set is_admin as true and break loop
-            if (session == "Y"):
+            if (session == "y"):
                 self.is_admin = True
                 check_admin = False
             # if the user is not admin break loop
-            elif (session.casefold() == "n"):
+            elif (session == "n"):
                 check_admin = False
             # if user entered incorrect input ask again
             else:
@@ -90,9 +90,9 @@ class ATM:
         print("Session ended. Logged out successfully.")
         check_exit = True
         while (check_exit):
-            ans = input("Do you wish to exit the program (Y/n)?: ")
+            ans = input("Do you wish to exit the program (Y/n)?: ").lower()
 
-            if (ans == "Y"):
+            if (ans == "y"):
                 sys.exit()
             elif (ans.casefold() == "n"):
                 return
@@ -120,7 +120,7 @@ class ATM:
             print("Q. Logout")
 
             # user input
-            choice = input("Please enter your chosen operation: ")
+            choice = input("Please enter your chosen operation: ").lower()
 
             # match input to choice
             if (choice == "1"):
@@ -139,7 +139,7 @@ class ATM:
                 self.disable()
             elif (choice == "8" and self.is_admin):
                 self.changeplan()
-            elif (choice == "Q"):
+            elif (choice == "q"):
                 self.logout()
             else:
                 print("Error invalid selection")
