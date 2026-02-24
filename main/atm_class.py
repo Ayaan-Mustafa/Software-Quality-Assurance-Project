@@ -179,7 +179,7 @@ class ATM:
 
                 # loop over users to find account holder
                 for i in range(len(self.users)):
-                    if (self.user[i].name == account.name):
+                    if (self.users[i].name == account.name):
                         # loop over holder's accounts
                         for j in range(len(self.users[i].accounts)):
                             # if the accounts matches
@@ -542,7 +542,7 @@ class ATM:
 
     def load_accounts(self):
         # open accounts file
-        with open("main/accounts.txt") as file:
+        with open("accounts.txt") as file:
             # skip first line
             next(file)
 
@@ -581,7 +581,7 @@ class ATM:
                 balance = balance[first_index:]
 
                 # create account object
-                account = Account(name, number, balance, "NP", enabled)
+                account = Account(name, number, int(balance), "NP", enabled)
 
                 # check if the user the account belongs to is in the users list
                 in_list = False
@@ -708,9 +708,9 @@ class ATM:
     def write_log(self, code, name, number, funds, misc):
         # write log string
         log = code + "_"
-        log = log + "{:<20}".format(name) + "_"
-        log = log + number + "_"
-        log = log + funds + "_"
+        log = log + name.ljust(20, '_') + "_"
+        log = log + number.rjust(5, '0') + "_"
+        log = log + funds.rjust(8, '0') + "_"
         log = log + misc
 
         # add log string to transaction list
