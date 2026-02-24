@@ -412,7 +412,9 @@ class ATM:
             return
 
         # Enter the initial balance (must be positive)
-        balance = self._validate_positive_int("Enter initial balance: ")
+        balance = self._validate_positive_or_zero_int(
+            "Enter initial balance: "
+        )
         if balance is None:
             return
 
@@ -654,6 +656,19 @@ class ATM:
             return None
         if amount <= 0:
             print("ERROR: amount must be > 0.")
+            return None
+        return amount
+
+    # Valiidation to ensure money is strictly > 0
+    def _validate_positive_or_zero_int(self, prompt: str):
+        string = input(prompt).strip()
+        try:
+            amount = int(string)
+        except ValueError:
+            print("ERROR: invalid amount.")
+            return None
+        if amount < 0:
+            print("ERROR: amount must zero or greater.")
             return None
         return amount
 
