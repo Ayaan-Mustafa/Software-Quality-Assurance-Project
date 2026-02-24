@@ -97,6 +97,7 @@ class ATM:
                 sys.exit()
             elif (ans.casefold() == "n"):
                 self.login()
+                self.main_menu()
             else:
                 print("Error invalid input")
 
