@@ -20,6 +20,8 @@ class ATM:
         self.current_user = None
         # list of all proccessed trasactions in current session
         self.transactions = []
+        # list of all inactive accounts, to be actiavted on admin logout
+        self.inactive = []
 
     # --- Core Logic ---
 
@@ -162,6 +164,10 @@ class ATM:
             print("ERROR: account is disabled.")
             return
 
+        if account in self.inactive:
+            print("Error: Account not active yet")
+            return
+
         # print current balance
         print(f"Current account balance: ${account.balance}")
 
@@ -223,6 +229,10 @@ class ATM:
             print("ERROR: account is disabled.")
             return
 
+        if account in self.inactive:
+            print("Error: Account not active yet")
+            return
+
         # make sure amount was positive
         amount = self._validate_positive_int("Enter amount to deposit: ")
         if amount is None:
@@ -254,12 +264,16 @@ class ATM:
             return
 
         # Select the from account
-        print("Select FROM account:")
+        print("Select FROM account: ")
         from_account = self.get_current_user_account()
 
         # Make sure the account isnt disabled
         if self._is_account_disabled(from_account):
             print("ERROR: FROM account is disabled.")
+            return
+
+        if from_account in self.inactive:
+            print("Error: Account not active yet")
             return
 
         # get the to account
@@ -274,6 +288,10 @@ class ATM:
         # Make sure the TO account is not disabled
         if self._is_account_disabled(to_account):
             print("ERROR: TO account is disabled.")
+            return
+
+        if to_account in self.inactive:
+            print("Error: Account not active yet")
             return
 
         # Get the amount for transfer
@@ -319,6 +337,10 @@ class ATM:
         # make sure its not disabled
         if self._is_account_disabled(account):
             print("ERROR: account is disabled.")
+            return
+
+        if account in self.inactive:
+            print("Error: Account not active yet")
             return
 
         # Enter the company code
@@ -405,6 +427,7 @@ class ATM:
 
         # otherwise make a new user
         self.users.append(User(name, "", [new_account]))
+        self.inactive.append(new_account)
         print("Account created successfully.")
         # Log
         self.write_log(code="05", name=name, number=number,
@@ -666,7 +689,7 @@ class ATM:
             # ask for name until valid name is inputed
             while (check_name):
                 # user input
-                name = input("Enter name of account holder")
+                name = input("Enter name of account holder: ")
 
                 # check if user is in list
                 for user in self.users:
@@ -691,7 +714,7 @@ class ATM:
         # ask for account number until valid number is inputed
         while (check_number):
             # user inpu
-            number = input("Enter the account number")
+            number = input("Enter the account number: ")
 
             # loop over acconts held by user
             for account in selected_user.accounts:
