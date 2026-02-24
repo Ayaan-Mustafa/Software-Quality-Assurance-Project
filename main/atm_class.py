@@ -262,7 +262,7 @@ class ATM:
 
         # get the to account
         to_account_num = input("Enter TO account number: ").strip()
-        to_account = self._find_account_by_number(to_account_num)
+        to_account = self.global_find_account_by_number(to_account_num)
 
         # Make sure the account exists
         if to_account is None:
@@ -365,6 +365,9 @@ class ATM:
 
         # Get the account holder name, account num and plan
         name = input("Enter account holder name: ").strip()
+        if len(name) >= 20:
+            print("Error: holder name must be less than 20 characters")
+            return
         number = input("Enter new account number: ").strip()
         plan = input("Enter plan (NP/SP): ").strip().upper()
 
@@ -374,7 +377,7 @@ class ATM:
             return
 
         # Ensure account number is unique
-        if self._find_account_by_number(number) is not None:
+        if self.global_find_account_by_number(number) is not None:
             print("ERROR: account number already exists.")
             return
 
@@ -382,6 +385,9 @@ class ATM:
         balance = self._validate_positive_int("Enter initial balance: ")
         if balance is None:
             return
+
+        if balance >= 100000.00:
+            print("Error: Initial Balance too high, must be at most 99,999.99")
 
         # make the new account
         new_account = Account(name, number, balance, plan, True)
