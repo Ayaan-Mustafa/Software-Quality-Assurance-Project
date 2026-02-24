@@ -81,6 +81,7 @@ class ATM:
             return
 
         self.make_output_file()
+        self.account_file()
 
         # Reset session state
         self.is_logged_in = False
@@ -555,7 +556,7 @@ class ATM:
             # read each line
             for line in file:
                 # skip last line
-                if (line == "00000_END_OF_FILE__________D_00000000"):
+                if (line == "00000_END_OF_FILE__________D_00000000\n"):
                     break
 
                 # slice each line
@@ -563,7 +564,7 @@ class ATM:
                 name = line[6:26]
                 status = line[27:28]
                 enabled = (status == "A")
-                balance = line[29:]
+                balance = line[29:37]
 
                 # trim off leading 0 of number
                 first_index = -1
@@ -721,3 +722,25 @@ class ATM:
 
         # add log string to transaction list
         self.transactions.append(log)
+
+    def account_file(self):
+        with open('accounts.txt', 'w') as file:
+            file.write("NNNNN_AAAAAAAAAAAAAAAAAAAA_S_PPPPPPPP\n")
+            for i in self.users:
+                for account in i.accounts:
+                    tempnumber = str(account.number)
+                    tempbalance = str(account.balance)
+                    if (account.enabled):
+                        file.write(
+                            tempnumber.rjust(5, '0') + "_" +
+                            account.name.ljust(20, '_') + '_A_' +
+                            tempbalance.rjust(8, '0') + '\n'
+                        )
+                    else:
+                        file.write(
+                            tempnumber.rjust(5, '0') + "_" +
+                            account.name.ljust(20, '_') + '_D_' +
+                            tempbalance.rjust(8, '0') + '\n'
+                        )
+
+            file.write("00000_END_OF_FILE__________D_00000000\n")
