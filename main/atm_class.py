@@ -392,7 +392,13 @@ class ATM:
         if len(name) >= 20:
             print("Error: holder name must be less than 20 characters")
             return
+        if name == "":
+            print("Error: Failed to provide name")
+            return
         number = input("Enter new account number: ").strip()
+        if number == "":
+            print("Error: Failed to provide number")
+            return
         plan = input("Enter plan (NP/SP): ").strip().upper()
 
         # Validate plan
@@ -442,7 +448,6 @@ class ATM:
 
         # get the name and account number for the account
         name = input("Enter account holder name: ").strip()
-        number = input("Enter account number to delete: ").strip()
 
         # find the user
         target_user = None
@@ -455,6 +460,8 @@ class ATM:
         if target_user is None:
             print("ERROR: unknown account holder.")
             return
+
+        number = input("Enter account number to delete: ").strip()
 
         # remove the account
         for i, account in enumerate(target_user.accounts):
