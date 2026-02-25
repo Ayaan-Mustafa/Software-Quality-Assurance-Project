@@ -486,7 +486,6 @@ class ATM:
 
         # get the account name and number
         name = input("Enter account holder name: ").strip()
-        number = input("Enter account number to disable: ").strip()
 
         # find the user
         target_user = None
@@ -499,6 +498,8 @@ class ATM:
         if target_user is None:
             print("ERROR: unknown account holder.")
             return
+
+        number = input("Enter account number to disable: ").strip()
 
         # Disable the account
         for acct in target_user.accounts:

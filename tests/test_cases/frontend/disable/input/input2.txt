@@ -1,1 +1,3 @@
-<non-admin user attempts to use disable transaction>
+n
+7
+Q
