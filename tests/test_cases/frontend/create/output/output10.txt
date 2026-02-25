@@ -1,3 +1,0 @@
-Failed to provide account name
-Failed to provide account number
-Exitting...

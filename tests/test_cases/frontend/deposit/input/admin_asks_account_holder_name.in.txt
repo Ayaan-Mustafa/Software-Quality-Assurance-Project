@@ -1,6 +1,6 @@
-login admin 12345 Aaron
-deposit
-Paula
-100001
+Y
+2
+Kevin
+123
 50
-quit
+Q

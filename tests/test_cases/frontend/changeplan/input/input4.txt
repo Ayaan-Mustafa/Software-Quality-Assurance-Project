@@ -1,1 +1,6 @@
-<admin user attempts to use changeplan transaction>
+Y
+8
+name
+1
+NP
+Q

@@ -1,6 +1,7 @@
-login user1 11111 Paula
-deposit
-999999
-888888
-777777
-quit
+n
+Kevin
+143
+192
+123
+506
+Q

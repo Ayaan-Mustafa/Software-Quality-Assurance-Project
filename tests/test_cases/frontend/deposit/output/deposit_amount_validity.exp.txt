@@ -1,17 +1,1 @@
-Welcome to Banking System
-> login user1 11111 Paula
-Login successful. Role: standard.
-> deposit
-Enter account number:
-100001
-Enter amount to deposit:
--5
-ERROR: Invalid amount. Enter a valid amount:
-0
-ERROR: Invalid amount. Enter a valid amount:
-10.999
-ERROR: Invalid amount. Enter a valid amount:
-10.50
-Deposit accepted. Amount: 10.50
-> quit
-Goodbye.
+ERROR: amount must be > 0.

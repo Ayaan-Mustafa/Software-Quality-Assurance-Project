@@ -1,1 +1,10 @@
-<another transaction involving the created account occurs during creation>
+Y
+5
+Johnny3
+1578
+NP
+500
+2
+Johnny3
+1578
+Q

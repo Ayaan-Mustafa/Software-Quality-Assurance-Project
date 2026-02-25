@@ -1,8 +1,5 @@
-login user1 11111 Paula
-deposit
-100001
+n
+Kevin
+123
 -5
-0
-10.999
-10.50
-quit
+Q
