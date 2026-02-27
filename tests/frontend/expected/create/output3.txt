@@ -1,1 +1,0 @@
-Error: holder name must be less than or equal to 20 characters

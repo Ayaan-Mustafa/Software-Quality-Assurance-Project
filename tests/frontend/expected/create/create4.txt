@@ -1,0 +1,32 @@
+Is this an admin session (Y/n)?: Y
+Logging in as admin
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: 5
+Enter account holder name: Johnny1
+Enter new account number: 1356
+Enter plan (NP/SP): NP
+Enter initial balance: 100000.00
+ERROR: invalid amount.
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: Q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: Y

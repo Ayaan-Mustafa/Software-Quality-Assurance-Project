@@ -1,0 +1,24 @@
+Is this an admin session (Y/n)?: n
+Please enter user name: Kevin
+Welcome Kevin!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: 2
+Enter the account number: 123
+Enter amount to deposit: 50
+116 + 50 = 166
+Deposit successful
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: Y

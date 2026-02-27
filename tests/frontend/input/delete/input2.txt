@@ -1,4 +1,0 @@
-<non admin user attempts to use delete transaction>
-n
-6
-Q

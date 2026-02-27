@@ -1,0 +1,14 @@
+Y
+5
+name delete1
+1011
+NP
+500
+Q
+n
+Y
+6
+name
+1
+Q
+Y

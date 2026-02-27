@@ -1,0 +1,29 @@
+Is this an admin session (Y/n)?: Y
+Logging in as admin
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: 7
+Enter account holder name: zhfjdhs
+ERROR: unknown account holder.
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: Q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: Y

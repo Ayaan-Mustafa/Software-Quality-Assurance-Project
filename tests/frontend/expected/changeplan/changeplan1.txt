@@ -1,0 +1,21 @@
+Is this an admin session (Y/n)?: n
+Please enter user name: name
+Welcome name!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: 8
+Error invalid selection
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: Y
