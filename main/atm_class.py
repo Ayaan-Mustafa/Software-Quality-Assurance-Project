@@ -9,7 +9,7 @@ from account_class import Account
 
 class ATM:
 
-    def __init__(self):
+    def __init__(self, accounts_file=None, transactions_file=None):
         # true if in admin mode
         self.is_admin = False
         # true if logged in
@@ -22,6 +22,17 @@ class ATM:
         self.transactions = []
         # list of all inactive accounts, to be actiavted on admin logout
         self.inactive = []
+        
+        if (accounts_file != None):
+            self.accounts_file = accounts_file
+        else:
+            self.accounts_file = "accounts.txt"
+            
+        if (transactions_file != None):
+            self.transactions_file = transactions_file
+        else:
+            self.transactions_file = "transactions.txt"
+            
 
     # --- Core Logic ---
 
@@ -577,7 +588,9 @@ class ATM:
             for transaction in self.transactions:
                 file.write(transaction + "\n")
 
-        print(f"Saved to: {full_file_path}")
+        # had to remove for matching test cases
+        # date/time would cause issues
+        # print(f"Saved to: {full_file_path}")
 
         return
 

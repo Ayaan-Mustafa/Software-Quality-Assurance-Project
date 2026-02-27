@@ -9,11 +9,11 @@ NC='\033[0m' # No Color (Reset)
 PYTHON_FILE="../main/main.py"
 TARGET_DIR="input"       
 OUTPUT_DIR="output"
-EXPECTED_DIR="expected"            
-RESULT_DIR="results"               
-ERROR_DIR="errors"                 
-ERROR_LOG="$ERROR_DIR/errors.log"  
-SUMMARY_FILE="summary.txt"         
+EXPECTED_DIR="expected"
+RESULT_DIR="results"
+ERROR_DIR="errors"
+ERROR_LOG="$ERROR_DIR/errors.log"
+SUMMARY_FILE="summary.txt"
 TIMEOUT_SEC=10  
 
 # Initialize our summary counters
@@ -27,16 +27,17 @@ if [ ! -f "$PYTHON_FILE" ]; then
 fi
 
 # Create all necessary directories safely
-mkdir -p "$TARGET_DIR" "$OUTPUT_DIR" "$ERROR_DIR" "$RESULT_DIR"
+mkdir -p "$OUTPUT_DIR" "$ERROR_DIR" "$RESULT_DIR"
 
 # Clear the error log and initialize the summary file
 > "$ERROR_LOG"
 echo "Test Suite Summary - $(date +"%Y-%m-%d %H:%M:%S")" > "$SUMMARY_FILE"
+echo "Arguments passed to Python: $@" >> "$SUMMARY_FILE" # Log the arguments!
 echo "=========================================" >> "$SUMMARY_FILE"
 echo "Failed Tests:" >> "$SUMMARY_FILE"
 
 echo "Scanning for .txt files recursively in '$TARGET_DIR'..."
-echo "Running script, comparing outputs, and generating '$SUMMARY_FILE'..."
+echo "Running '$PYTHON_FILE' with arguments: '$@'"
 echo "========================================="
 
 # Find all .txt files recursively and pipe them into a while loop
@@ -54,17 +55,15 @@ while IFS= read -r INPUT_FILE; do
     
     echo "Processing: $REL_PATH"
     
-    timeout "$TIMEOUT_SEC" python3 "$PYTHON_FILE" < "$INPUT_FILE" > "$OUTPUT_FILE" 2> "$TEMP_ERR"
+    # Forward all shell arguments ("$@") directly to the Python script
+    timeout "$TIMEOUT_SEC" python3 "$PYTHON_FILE" "$@" < "$INPUT_FILE" > "$OUTPUT_FILE" 2> "$TEMP_ERR"
     EXIT_CODE=$?
     
     # 1. Check for Timeout
     if [ $EXIT_CODE -eq 124 ]; then
         echo "[$TIMESTAMP] TIMEOUT: Processing '$INPUT_FILE' exceeded $TIMEOUT_SEC seconds." >> "$ERROR_LOG"
         echo "---------------------------------------------------" >> "$ERROR_LOG"
-        
-        # Color the error red
         echo -e "  -> ${RED}Error: Timed out!${NC}"
-        
         echo "- $REL_PATH (Timeout after ${TIMEOUT_SEC}s)" >> "$SUMMARY_FILE"
         ((FAIL_COUNT++))
         
@@ -74,10 +73,7 @@ while IFS= read -r INPUT_FILE; do
         echo "[$TIMESTAMP] Error processing file: $INPUT_FILE" >> "$ERROR_LOG"
         cat "$TEMP_ERR" >> "$ERROR_LOG"
         echo "---------------------------------------------------" >> "$ERROR_LOG"
-        
-        # Color the crash red
         echo -e "  -> ${RED}Warning: Python script crashed! Logged.${NC}"
-        
         echo "- $REL_PATH (Python Crash)" >> "$SUMMARY_FILE"
         ((FAIL_COUNT++))
         
@@ -85,9 +81,7 @@ while IFS= read -r INPUT_FILE; do
     else
         # 3. Check if the expected file is missing
         if [ ! -f "$EXPECTED_FILE" ]; then
-            # Color the warning red
             echo -e "  -> ${RED}Warning: Expected file missing! Cannot verify.${NC}"
-            
             echo "- $REL_PATH (Missing Expected File)" >> "$SUMMARY_FILE"
             ((FAIL_COUNT++))
             
@@ -97,15 +91,11 @@ while IFS= read -r INPUT_FILE; do
             DIFF_STATUS=$?
             
             if [ $DIFF_STATUS -eq 0 ]; then
-                # Color the success green
                 echo -e "  -> ${GREEN}PASS: Output matches expected perfectly.${NC}"
                 ((SUCCESS_COUNT++))
-                # if the output matches the expected file
                 rm -f "$RESULT_FILE" 
             else
-                # Color the failure red
                 echo -e "  -> ${RED}FAIL: Output differs from expected.${NC}"
-                
                 echo "- $REL_PATH (Output Mismatch)" >> "$SUMMARY_FILE"
                 ((FAIL_COUNT++))
             fi
@@ -124,7 +114,7 @@ echo "=========================================" >> "$SUMMARY_FILE"
 echo "Tests Passed: $SUCCESS_COUNT" >> "$SUMMARY_FILE"
 echo "Tests Failed: $FAIL_COUNT" >> "$SUMMARY_FILE"
 
-# Print the final summary to the terminal with colors
+# Print the final summary to the terminal
 echo "========================================="
 echo "Test Suite Completed!"
 echo -e "${GREEN}Passed: $SUCCESS_COUNT${NC} | ${RED}Failed: $FAIL_COUNT${NC}"

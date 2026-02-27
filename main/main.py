@@ -7,9 +7,11 @@ from atm_class import ATM
 def main():
     if (len(sys.argv) > 1):
         accounts_file = sys.argv[1]
-        transaction_file = sys.argv[2]
-
-    atm = ATM()
+        transactions_file = sys.argv[2]
+        atm = ATM(accounts_file=accounts_file, transactions_file=transactions_file)
+        
+    else:
+        atm = ATM()
 
     # Load accounts
     atm.load_accounts()
