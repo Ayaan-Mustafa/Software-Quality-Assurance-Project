@@ -591,6 +591,7 @@ class ATM:
         # had to remove for matching test cases
         # date/time would cause issues
         # print(f"Saved to: {full_file_path}")
+        print("Saved log to transaction file")
 
         return
 

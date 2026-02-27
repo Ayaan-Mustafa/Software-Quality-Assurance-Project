@@ -11,5 +11,6 @@ Logging in as admin
 8. Change Account Plan
 Q. Logout
 Please enter your chosen operation: Q
+Saved log to transaction file
 Session ended. Logged out successfully.
 Do you wish to exit the program (Y/n)?: Y

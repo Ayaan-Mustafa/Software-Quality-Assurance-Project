@@ -1,0 +1,32 @@
+Is this an admin session (Y/n)?: y
+Logging in as admin
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: n
+Is this an admin session (Y/n)?: y
+Logging in as admin
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: y

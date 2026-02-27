@@ -40,5 +40,6 @@ Error invalid selection
 4. Paybill
 Q. Logout
 Please enter your chosen operation: Q
+Saved log to transaction file
 Session ended. Logged out successfully.
 Do you wish to exit the program (Y/n)?: Y

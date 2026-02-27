@@ -1,8 +1,6 @@
-Is this an admin session (Y/n)?: 1
+Is this an admin session (Y/n)?: q
 Error Inavalid Input
-Is this an admin session (Y/n)?: 5
-Error Inavalid Input
-Is this an admin session (Y/n)?: Y
+Is this an admin session (Y/n)?: y
 Logging in as admin
 ------ATM SYSTEM-----
 1. Withdraw
@@ -14,7 +12,7 @@ Logging in as admin
 7. Disable Account
 8. Change Account Plan
 Q. Logout
-Please enter your chosen operation: Q
+Please enter your chosen operation: q
 Saved log to transaction file
 Session ended. Logged out successfully.
-Do you wish to exit the program (Y/n)?: Y
+Do you wish to exit the program (Y/n)?: y
