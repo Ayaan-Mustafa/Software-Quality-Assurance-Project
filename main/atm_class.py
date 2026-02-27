@@ -145,7 +145,7 @@ class ATM:
             elif (choice == "3"):
                 self.transfer()
             elif (choice == "4"):  # TODO Doesn't work
-                self.paybill
+                self.paybill()
             elif (choice == "5" and self.is_admin):
                 self.create()
             elif (choice == "6" and self.is_admin):

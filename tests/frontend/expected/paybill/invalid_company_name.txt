@@ -1,0 +1,25 @@
+Is this an admin session (Y/n)?: n
+Please enter user name: Test McTesterson
+Welcome Test McTesterson!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: 4
+Enter the account number: 00010
+Error incorrect account number
+Enter the account number: 10
+Enter company code (EC/CQ/FI): HI
+ERROR: invalid company code.
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: y
