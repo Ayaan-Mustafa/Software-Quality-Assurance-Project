@@ -1,0 +1,8 @@
+Is this an admin session (Y/n)?: n
+Please enter user name: Test McTesterson
+4
+ 
+10
+ 
+q
+y
