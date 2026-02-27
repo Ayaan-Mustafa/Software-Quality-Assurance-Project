@@ -27,8 +27,8 @@ class ATM:
 
     def login(self):
         # print users FOR TESTING PURPOSES
-        for user in self.users:
-            print(user)
+        # for user in self.users:
+        #     print(user)
 
         # check if the user is logging in as admin
         check_admin = True
