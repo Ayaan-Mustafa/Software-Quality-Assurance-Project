@@ -21,3 +21,7 @@ First version of our source code can be found in **/main**
 Design Document can be found in **/Documentation**
 
 UML diagram is in the Design Document
+
+Phase 3 test results found in **/tests/test_results/frontend/reports/Test_summary.txt**
+
+Failure Log in **/Documentation**
