@@ -206,7 +206,7 @@ class ATM:
                                     == account.number):
                                 # print transaction
                                 print(f"{account.balance}"
-                                      f"- {amount}"
+                                      f"- {amount} "
                                       f"= {new_balance}")
                                 # change the account balance
                                 self.users[i].accounts[j].balance = new_balance
