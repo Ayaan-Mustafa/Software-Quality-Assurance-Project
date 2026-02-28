@@ -1,1 +1,0 @@
-Error: Initial Balance too high, must be at most 99,999.99

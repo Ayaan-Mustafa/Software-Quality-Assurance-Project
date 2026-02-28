@@ -1,4 +1,9 @@
-login user1 11111 Paula
-paybill
+n
+johnny123
+4
 
-quit
+1000
+EC
+10
+q
+y

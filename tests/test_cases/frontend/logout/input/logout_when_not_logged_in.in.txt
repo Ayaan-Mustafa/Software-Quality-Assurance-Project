@@ -1,2 +1,4 @@
-logout
-quit
+n
+name
+q
+y

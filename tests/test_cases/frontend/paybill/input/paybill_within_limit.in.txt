@@ -1,6 +1,8 @@
-login user1 11111 Paula
-paybill
-100001
-Credit Card Company Q (CQ)
-2000
-quit
+n
+johnny123
+4
+1000
+CQ
+200
+q
+y

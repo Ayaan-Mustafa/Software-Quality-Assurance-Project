@@ -1,6 +1,7 @@
-login admin 12345 Aaron
-withdraw
-Bob
-100001
+y
+1
+Kevin
+123
 20
-quit
+q
+y

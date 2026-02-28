@@ -1,6 +1,8 @@
-login user1 11111 Paula
-paybill
-100001
-The Bright Light Electric Company (EC)
-300
-quit
+n
+johnny123
+4
+1000
+EC
+abc
+q
+y

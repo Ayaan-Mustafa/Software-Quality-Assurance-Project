@@ -1,0 +1,18 @@
+Is this an admin session (Y/n)?: Please enter user name: Welcome johnny123!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Select FROM account: 
+Enter the account number: Enter TO account number: Enter amount to transfer: Transfer successful: 5from 1000to 1001
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Saved to: /Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/transactions/transactions_2026-02-27_19-07-56.txt
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: 

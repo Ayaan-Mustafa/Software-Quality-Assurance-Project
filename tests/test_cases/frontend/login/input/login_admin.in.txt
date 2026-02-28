@@ -1,2 +1,3 @@
-login admin 12345 Aaron
-quit
+y
+q
+y

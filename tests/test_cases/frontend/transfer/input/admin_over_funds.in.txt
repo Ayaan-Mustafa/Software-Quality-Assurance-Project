@@ -1,7 +1,8 @@
-login admin 12345 Aaron
-transfer
-Bob
-100001
-200002
+y
+3
+Kevin
+123
+1000
 9999
-quit
+q
+y

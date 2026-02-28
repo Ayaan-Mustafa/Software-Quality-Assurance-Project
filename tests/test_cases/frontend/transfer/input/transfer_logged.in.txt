@@ -1,7 +1,8 @@
-login user1 11111 Paula
-transfer
-100001
-200002
+n
+johnny123
+3
+1000
+1001
 25
-logout
-quit
+q
+y

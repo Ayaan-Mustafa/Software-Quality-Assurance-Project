@@ -1,6 +1,9 @@
-login admin 12345 Aaron
-transfer
-
-
-
-quit
+y
+3
+NoUser
+Kevin
+123
+1000
+10
+q
+y

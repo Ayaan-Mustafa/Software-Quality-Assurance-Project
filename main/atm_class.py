@@ -26,10 +26,6 @@ class ATM:
     # --- Core Logic ---
 
     def login(self):
-        # print users FOR TESTING PURPOSES
-        for user in self.users:
-            print(user)
-
         # check if the user is logging in as admin
         check_admin = True
         while (check_admin):
@@ -133,8 +129,8 @@ class ATM:
                 self.deposit()
             elif (choice == "3"):
                 self.transfer()
-            elif (choice == "4"):  # TODO Doesn't work
-                self.paybill
+            elif (choice == "4"):
+                self.paybill()
             elif (choice == "5" and self.is_admin):
                 self.create()
             elif (choice == "6" and self.is_admin):
@@ -171,17 +167,14 @@ class ATM:
         # print current balance
         print(f"Current account balance: ${account.balance}")
 
-        # init input variable
-        amount = ""
-        # loop condition
-        check_amount = True
-        while (check_amount):
-            # user input
-            amount = input("Enter amount to withdraw: ")
-            amount = int(amount)
+        # loop until valid withdraw request
+        while True:
+            amount = self._validate_positive_int("Enter amount to withdraw: ")
+            if amount is None:
+                continue
 
-            # if the ammount is valid
-            if (amount > 0 and amount <= 500 and amount <= account.balance):
+            # if the amount is valid
+            if (amount <= 500 and amount <= account.balance):
                 # calculate new account balance
                 new_balance = account.balance - amount
 
@@ -190,7 +183,7 @@ class ATM:
                     if (self.users[i].name == account.name):
                         # loop over holder's accounts
                         for j in range(len(self.users[i].accounts)):
-                            # if the accounts matches
+                            # if the account matches
                             if (self.users[i].accounts[j].number
                                     == account.number):
                                 # print transaction
@@ -207,9 +200,7 @@ class ATM:
                                                number=account.number,
                                                funds=str(new_balance),
                                                misc="NA")
-                                # exit
                                 return
-            # otherwise print error message
             else:
                 print("Error enter a valid amount")
 

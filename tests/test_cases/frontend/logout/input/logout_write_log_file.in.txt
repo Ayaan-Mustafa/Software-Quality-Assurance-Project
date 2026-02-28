@@ -1,4 +1,7 @@
-login user1 11111 Paula
-deposit 10
-logout
-quit
+n
+name
+2
+1
+10
+q
+y

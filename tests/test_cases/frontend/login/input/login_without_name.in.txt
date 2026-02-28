@@ -1,2 +1,5 @@
-login user1 11111
-quit
+n
+
+name
+q
+y
