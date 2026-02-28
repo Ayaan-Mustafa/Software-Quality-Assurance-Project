@@ -28,4 +28,4 @@ test results found in **/tests/test_results/frontend/reports/Test_summary.txt**
 
 Failure Log in **/Documentation**
 
-Script for the front end tests is under /tests/run_frontend_tests.sh
+Script for the front end tests is under /tests/test_cases/frontend/run_frontend_tests.sh
