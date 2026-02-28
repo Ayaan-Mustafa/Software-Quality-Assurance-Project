@@ -22,6 +22,10 @@ Design Document can be found in **/Documentation**
 
 UML diagram is in the Design Document
 
-Phase 3 test results found in **/tests/test_results/frontend/reports/Test_summary.txt**
+## Phase 3 
+
+test results found in **/tests/test_results/frontend/reports/Test_summary.txt**
 
 Failure Log in **/Documentation**
+
+Script for the front end tests is under /tests/run_frontend_tests.sh
