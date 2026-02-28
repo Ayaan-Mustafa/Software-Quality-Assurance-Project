@@ -1,0 +1,19 @@
+Is this an admin session (Y/n)?: Please enter user name: Welcome Kevin!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Enter the account number: Enter amount to deposit: 106 + 50 = 156
+Deposit successful
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Saved to: /Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/transactions/transactions_2026-02-27_19-07-49.txt
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: Error invalid input
+Do you wish to exit the program (Y/n)?: 

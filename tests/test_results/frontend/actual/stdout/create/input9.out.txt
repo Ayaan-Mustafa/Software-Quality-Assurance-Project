@@ -1,0 +1,37 @@
+Is this an admin session (Y/n)?: Logging in as admin
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: Enter account holder name: Enter new account number: Enter plan (NP/SP): Enter initial balance: Account created successfully.
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: Enter name of account holder: Enter the account number: Error: Account not active yet
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: Saved to: <TRANSACTION_FILE>
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: Error invalid input
+Do you wish to exit the program (Y/n)?: 

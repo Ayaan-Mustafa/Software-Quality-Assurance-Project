@@ -1,4 +1,9 @@
-login admin 12345 Aaron
-paybill
+y
+4
 NotAUser
-quit
+Kevin
+123
+EC
+10
+q
+y

@@ -1,5 +1,0 @@
-Welcome to Banking System
-> login admin 12345 Aaron
-Login successful. Role: admin.
-> quit
-Goodbye.

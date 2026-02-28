@@ -1,4 +1,8 @@
-login admin 12345 Aaron
-create-user user2 22222 Paula
-delete-user user2 22222 Paula
-quit
+y
+5
+Alice
+54321
+NP
+10
+q
+y

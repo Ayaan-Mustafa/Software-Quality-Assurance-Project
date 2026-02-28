@@ -1,0 +1,32 @@
+Is this an admin session (Y/n)?: Please enter user name: Welcome name!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Enter the account number: Enter amount to deposit: 5 + 10 = 15
+Deposit successful
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Enter the account number: Error incorrect account number
+Enter the account number: Error incorrect account number
+Enter the account number: Error incorrect account number
+Enter the account number: Traceback (most recent call last):
+  File "/Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/main.py", line 21, in <module>
+    main()
+  File "/Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/main.py", line 17, in main
+    atm.main_menu()
+  File "/Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/atm_class.py", line 133, in main_menu
+    self.paybill()
+  File "/Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/atm_class.py", line 331, in paybill
+    account = self.get_current_user_account()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aaron/Documents/softwareQualityAssurance/Software-Quality-Assurance-Project/main/atm_class.py", line 736, in get_current_user_account
+    number = input("Enter the account number: ")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+EOFError: EOF when reading a line

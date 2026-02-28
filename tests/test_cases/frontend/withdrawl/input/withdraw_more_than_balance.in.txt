@@ -1,5 +1,8 @@
-login user1 11111 Paula
-withdraw
-100001
+n
+name
+1
+1
 400
-quit
+4
+q
+y

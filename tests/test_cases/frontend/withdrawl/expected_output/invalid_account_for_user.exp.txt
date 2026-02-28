@@ -1,0 +1,20 @@
+Is this an admin session (Y/n)?: Please enter user name: Welcome name!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Enter the account number: Error incorrect account number
+Enter the account number: Current account balance: $5
+Enter amount to withdraw: 5- 1= 4
+withdraw succesful
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: Saved to: <TRANSACTION_FILE>
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: 
