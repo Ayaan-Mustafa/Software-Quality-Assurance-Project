@@ -1,0 +1,8 @@
+Is this an admin session (Y/n)?: y
+3
+transfer
+320
+321
+9999
+q
+y

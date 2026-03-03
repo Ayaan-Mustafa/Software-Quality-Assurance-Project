@@ -1,0 +1,24 @@
+Is this an admin session (Y/n)?: n
+Please enter user name: transfer
+Welcome transfer!
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: 3
+Select FROM account: 
+Enter the account number: 318
+Enter TO account number: 
+ERROR: TO account not found.
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+Q. Logout
+Please enter your chosen operation: q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: y

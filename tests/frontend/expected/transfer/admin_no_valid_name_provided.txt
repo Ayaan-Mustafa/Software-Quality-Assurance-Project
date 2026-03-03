@@ -1,0 +1,35 @@
+Is this an admin session (Y/n)?: y
+Logging in as admin
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: 3
+Select FROM account: 
+Enter name of account holder:     
+Error incorrect user name
+Enter name of account holder: transfer
+Enter the account number: 322
+Enter TO account number: 323
+Enter amount to transfer: 10
+Transfer successful: 10 from 322 to 323
+------ATM SYSTEM-----
+1. Withdraw
+2. Deposit
+3. Transfer
+4. Paybill
+5. Create Account
+6. Delete Account
+7. Disable Account
+8. Change Account Plan
+Q. Logout
+Please enter your chosen operation: q
+Saved log to transaction file
+Session ended. Logged out successfully.
+Do you wish to exit the program (Y/n)?: y

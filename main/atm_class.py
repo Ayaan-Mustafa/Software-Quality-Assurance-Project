@@ -325,8 +325,8 @@ class ATM:
         to_account.balance = int(to_account.balance) + amount
 
         print(f"Transfer successful: {amount}"
-              f"from {from_account.number}"
-              f"to {to_account.number}")
+              f" from {from_account.number}"
+              f" to {to_account.number}")
 
         # Write log, funds = amount moved, misc = destination account
         self.write_log(code="02",
