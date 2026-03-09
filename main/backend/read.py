@@ -5,6 +5,8 @@ def read_old_bank_accounts(file_path):
     """
     accounts = []
     with open(file_path, 'r') as file:
+        next(file)
+
         for line_num, line in enumerate(file, 1):
             clean_line = line.rstrip('\n')
             
