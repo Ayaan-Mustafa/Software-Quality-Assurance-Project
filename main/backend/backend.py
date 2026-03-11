@@ -18,8 +18,24 @@ from write import write_new_current_accounts
 
 # Backend class that performs the backend operations
 class Backend():
+    """
+    Backend Class
+    This class performs all the backend operations of them banking application.
+    It reads the master accounts file and the daily transaction files and
+    performs the transaction on the accounts in the master file.
+
+    Parameters:
+        transactions_path: the file path to the daily transactions file.
+        accounts_path: the file path to the master accounts file.
+    """
     # Constructor
+
     def __init__(self, accounts_path, transactions_path):
+        """
+        class constructor that takes the paths to the master accounts
+        and transaction files as argruments and initlizes the lists
+        used during class operations.
+        """
         # store file paths
         self.accounts_path = accounts_path
         self.transactions_path = transactions_path
@@ -30,6 +46,9 @@ class Backend():
 
     # main method that runs all the backend operations
     def run(self):
+        """
+        calls all the methods that make up a single run of the program.
+        """
         # read the old master accounts file
         self.accounts = read_old_bank_accounts(self.accounts_path)
         # read the transaction file
@@ -43,6 +62,10 @@ class Backend():
     # list of dictionaries where each line is a represented as dictionary
     # in the list
     def read_transactions(self, path):
+        """
+        method that reads the contents of the transactions file and adds each
+        line as a dictionary to a list.
+        """
         # check if the transactions file exits
         if not os.path.isfile(path):
             # if it does not exit progam
@@ -90,6 +113,12 @@ class Backend():
     # method that performs each transaction in the transactions list on the
     # accounts in the accounts list
     def perform_transactions(self):
+        """
+        method that performs the transactions
+        operationson each account. iterates through both lists and
+        applies the relevanant transaction on each account based on the
+        transaction code.
+        """
         # lists for holding accounts that wrere created/deleted
         deleted = []
 
@@ -202,6 +231,9 @@ class Backend():
 
     # helper method that removes the leading zeros from numeric fields
     def remove_leading_zeros(self, number):
+        """
+        helper method that removes the leading zeros from Strings.
+        """
         first_index = -1
         match = re.serach(r'[^0]', number)
         if match:
