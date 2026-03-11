@@ -1,3 +1,5 @@
+import sys
+import os
 import re
 from print_error import log_constraint_error
 from read import read_old_bank_accounts
@@ -41,6 +43,14 @@ class Backend():
     # list of dictionaries where each line is a represented as dictionary
     # in the list
     def read_transactions(self, path):
+        # check if the transactions file exits
+        if not os.path.isfile(path):
+            # if it does not exit progam
+            log_constraint_error("transaction file does not exsist",
+                                 "/main/backend/backend.py - Backend class - "
+                                 "read transaction method", True)
+
+        # otherwise if the file exits
         # open the transactions file
         with open(path, "r") as file:
             # read each line in the file
@@ -54,7 +64,7 @@ class Backend():
                 name = line[3:23]
                 number = line[24:29]
                 funds = line[30:38]
-                misc = line[39:42]
+                misc = line[39:]
 
                 # trim off leading 0 of number
                 number = self.remove_leading_zeros(number)
@@ -81,7 +91,6 @@ class Backend():
     # accounts in the accounts list
     def perform_transactions(self):
         # lists for holding accounts that wrere created/deleted
-        created = []
         deleted = []
 
         # loop over accounts
@@ -97,52 +106,99 @@ class Backend():
                 if (transaction["code"] == "01"):
                     # remove funds from balance
                     account["balance"] -= transaction["funds"]
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 02 - transfer
                 elif (transaction["code"] == "02"):
-                    # TODO
+                    # find the account that the funds were transfered to
+                    for transfer_account in self.accounts:
+                        if (
+                            transfer_account["account_number"]
+                            == transaction["misc"]
+                        ):
+                            # add the funds to the recipient account
+                            account["balance"] -= transaction["funds"]
+                            # remove the funds from the account
+                            transfer_account["balance"] += transaction["funds"]
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 03 - paybill
                 elif (transaction["code"] == "03"):
                     # remove funds from balance
                     account["balance"] -= transaction["funds"]
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 04 - deposit
                 elif (transaction["code"] == "04"):
                     # add funds to balance
                     account["balance"] += transaction["funds"]
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 05 - create
                 elif (transaction["code"] == "05"):
-                    # TODO
-                    created.append(transaction)
-                    account["total_transactions"] += 1
+                    # create account dictionary
+                    new_account = {}
+
+                    # add account fields
+                    new_account["name"] = transaction["name"]
+                    new_account["account_number"] \
+                        = transaction["account_number"]
+                    new_account["status"] = "A"
+                    new_account["balance"] = transaction["funds"]
+                    new_account["plan"] = transaction["misc"]
+                    new_account["total"] = 0
+
+                    # add account to list
+                    self.accounts.append(new_account)
 
                 # 06 - delete
                 elif (transaction["code"] == "06"):
-                    # TODO
+                    # add deleted accounts to delted list
                     deleted.append(transaction)
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 07 - disable
                 elif (transaction["code"] == "07"):
                     # set account status to disabled
                     account["status"] = "D"
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 08 - changeplan
                 elif (transaction["code"] == "08"):
                     # change account plan
                     account["plan"] == transaction["misc"]
+                    # increment the total transactions
                     account["total_transactions"] += 1
 
                 # 00 - end of session
                 elif (transaction["code"] == "00"):
                     continue
+
+                # unknown transaction code
+                else:
+                    log_constraint_error("The transaction code "
+                                         f"{transaction["code"]} "
+                                         "does not match any known "
+                                         "transaction codes",
+                                         "main/backend/backend.py - "
+                                         "Backend Class - "
+                                         "perform_transactions method ",
+                                         False)
+
+        # remove the deleted accounts from the list of accounts
+        for deleted_account in deleted:
+            for account in self.accounts:
+                if (
+                    deleted_account["account_number"]
+                    == account["account_number"]
+                ):
+                    self.accounts.remove(account)
 
     # helper method that removes the leading zeros from numeric fields
     def remove_leading_zeros(self, number):
@@ -156,8 +212,20 @@ class Backend():
 
 # main
 def main():
-    # TODO
-    pass
+    # default file paths
+    master_account_file_path = ""
+    transactions_file_path = ""
+
+    # check for command line arguments
+    if len(sys.argv) > 1:
+        # set file paths as given paths
+        master_account_file_path = sys.argv[0]
+        transactions_file_path = sys.argv[1]
+
+    # create Backend object
+    backend = Backend(master_account_file_path, transactions_file_path)
+    # run backend operations
+    backend.run()
 
 
 if __name__ == "__main__":
