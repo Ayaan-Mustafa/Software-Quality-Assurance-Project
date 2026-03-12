@@ -28,4 +28,11 @@ test results found in **/tests/test_results/frontend/reports/Test_summary.txt**
 
 Failure Log in **/Documentation**
 
-Script for the front end tests is under /tests/test_cases/frontend/run_frontend_tests.sh
+Script for the front end tests is under **/tests/test_cases/frontend/run_frontend_tests.sh**
+
+## Phase 4
+
+First version of the Backend source code found in **main/backend**
+
+backend design documnet and uml diagram found in **Documentation**
+
