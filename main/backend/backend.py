@@ -33,7 +33,7 @@ class Backend():
     def __init__(self, accounts_path, transactions_path):
         """
         class constructor that takes the paths to the master accounts
-        and transaction files as argruments and initlizes the lists
+        and transaction files as arguments and initializes the lists
         used during class operations.
         """
         # store file paths
@@ -116,7 +116,7 @@ class Backend():
         """
         method that performs the transactions
         operationson each account. iterates through both lists and
-        applies the relevanant transaction on each account based on the
+        applies the relevant transaction on each account based on the
         transaction code.
         """
         # lists for holding accounts that wrere created/deleted
