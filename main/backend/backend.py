@@ -1,3 +1,11 @@
+"""
+The Backend of the banking application. Reads in the files in the
+Master Accounts file and the transactions in the daily transactions
+file, performs the operations on the accounts and then updates the
+Master Accounts File
+"""
+
+
 import sys
 import os
 import re
@@ -244,6 +252,12 @@ class Backend():
 
 # main
 def main():
+    """
+    The main function that runs the backend program. It reads the command line
+    arguments to get the file paths and then creates and runs the backend
+    class to perform the operations.
+    """
+
     # default file paths
     master_account_file_path = ""
     transactions_file_path = ""

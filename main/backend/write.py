@@ -1,3 +1,10 @@
+"""
+Helper method to the backend of the banking application. It writes
+the new Master Accounts file after the transaction operations are
+complete.
+"""
+
+
 def write_new_current_accounts(accounts, file_path):
     """
     Writes Current Bank Accounts File with strict validation

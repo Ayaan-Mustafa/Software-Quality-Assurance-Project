@@ -1,3 +1,8 @@
+"""
+A helper method to the Backend that prints error and information
+about where they occured.
+"""
+
 import sys
 
 

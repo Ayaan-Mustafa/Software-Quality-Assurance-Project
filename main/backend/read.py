@@ -1,3 +1,19 @@
+"""
+Helper method to the backend of the banking application. It reads the
+contents of the Master Bank accounts file and returns it as a list of
+dictionaries of the following shape.
+
+{
+    'account_number': str,
+    'name': str,
+    'status': str,
+    'balance': float,
+    'total_transactions': int,
+    'plan': str
+}
+"""
+
+
 def read_old_bank_accounts(file_path):
     """
     Reads and validates the bank account file format with plan type (SP/NP)
