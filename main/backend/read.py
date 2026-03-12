@@ -9,10 +9,12 @@ def read_old_bank_accounts(file_path):
 
         for line_num, line in enumerate(file, 1):
             clean_line = line.rstrip('\n')
-            
+
             # Validate line length (now 44 chars to include plan type)
             if len(clean_line) != 45:
-                print(f"ERROR: Fatal error - Line {line_num}: Invalid length ({len(clean_line)} chars, expected 45)")
+                print(
+                    f"ERROR: Fatal error - Line {line_num}:"
+                    f" Invalid length ({len(clean_line)} chars, expected 45)")
                 continue
 
             try:
@@ -26,34 +28,54 @@ def read_old_bank_accounts(file_path):
 
                 # Validate account number
                 if not account_number.isdigit():
-                    print(f"ERROR: Fatal error - Line {line_num}: Account number must be 5 digits")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        " Account number must be 5 digits"
+                    )
                     continue
 
                 # Validate status
                 if status not in ('A', 'D'):
-                    print(f"ERROR: Fatal error - Line {line_num}: Invalid status '{status}'. Must be 'A' or 'D'")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        f" Invalid status '{status}'. Must be 'A' or 'D'"
+                    )
                     continue
 
                 # Validate balance format with explicit negative check
                 if balance_str[0] == '-':
-                    print(f"ERROR: Fatal error - Line {line_num}: Negative balance detected: {balance_str}")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        f" Negative balance detected: {balance_str}"
+                    )
                     continue
-                
-                if (len(balance_str) != 8 or 
-                    balance_str[5] != '.' or 
-                    not balance_str[:5].isdigit() or 
-                    not balance_str[6:].isdigit()):
-                    print(f"ERROR: Fatal error - Line {line_num}: Invalid balance format. Expected XXXXX.XX, got {balance_str}")
+
+                if (len(balance_str) != 8 or
+                    balance_str[5] != '.' or
+                    not balance_str[:5].isdigit() or
+                        not balance_str[6:].isdigit()):
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        " Invalid balance format. Expected XXXXX.XX, "
+                        f"got {balance_str}"
+                    )
                     continue
 
                 # Validate transaction count
                 if not transactions_str.isdigit():
-                    print(f"ERROR: Fatal error - Line {line_num}: Transaction count must be 4 digits")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        " Transaction count must be 4 digits"
+                    )
                     continue
 
                 # Validate plan type
                 if plan_type not in ('SP', 'NP'):
-                    print(f"ERROR: Fatal error - Line {line_num}: Invalid plan type '{plan_type}'. Must be SP or NP")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        " Invalid plan type '{plan_type}'."
+                        " Must be SP or NP"
+                    )
                     continue
 
                 # Convert values
@@ -62,10 +84,16 @@ def read_old_bank_accounts(file_path):
 
                 # Business rule validation
                 if balance < 0:
-                    print(f"ERROR: Fatal error - Line {line_num}: Negative balance detected")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        " Negative balance detected"
+                    )
                     continue
                 if transactions < 0:
-                    print(f"ERROR: Fatal error - Line {line_num}: Negative transaction not allowed")
+                    print(
+                        f"ERROR: Fatal error - Line {line_num}:"
+                        " Negative transaction not allowed"
+                    )
                     continue
 
                 accounts.append({
@@ -78,7 +106,9 @@ def read_old_bank_accounts(file_path):
                 })
 
             except Exception as e:
-                print(f"ERROR: Fatal error - Line {line_num}: Unexpected error - {str(e)}")
+                print(
+                    f"ERROR: Fatal error - Line {line_num}:"
+                    f" Unexpected error - {str(e)}")
                 continue
 
     return accounts

@@ -8,8 +8,34 @@ from account_class import Account
 
 
 class ATM:
+    """
+    Main class representing the ATM system.
+
+    Manages user sessions, processes financial transactions, and provides
+    administrative functions like account creation and deletion.
+
+    Attributes:
+        is_admin (bool):
+            True if the current session is an admin session, False otherwise.
+        is_logged_in (bool):
+            True if a user or admin is currently logged in.
+        users (list):
+            A list of all User objects currently loaded in the system.
+        current_user (User or None):
+            The User object for the currently logged-in standard user.
+            This should be None if the current session is an admin session.
+        transactions (list):
+            A list of string logs representing all processed transactions
+            in the current session.
+        inactive (list):
+            A list of all newly created, inactive Account objects that
+            are waiting to be activated upon admin logout.
+    """
 
     def __init__(self):
+        """
+        Initializes the ATM system with default state variables.
+        """
         # true if in admin mode
         self.is_admin = False
         # true if logged in
@@ -26,6 +52,12 @@ class ATM:
     # --- Core Logic ---
 
     def login(self):
+        """
+        Handles the login process for both admin and standard users.
+
+        Prompts for session type and authenticates the user against the
+        loaded users list if logging in as a standard user.
+        """
         # check if the user is logging in as admin
         check_admin = True
         while (check_admin):
@@ -74,6 +106,10 @@ class ATM:
     # Logout function which writes log, resets session,
     # returns to reloggin screen.
     def logout(self):
+        """
+        Logs out the current user or admin, writes transaction logs,
+        and saves the updated account states to file.
+        """
         if not self.is_logged_in:
             print("ERROR: not logged in.")
             return
@@ -100,7 +136,10 @@ class ATM:
                 print("Error invalid input")
 
     def main_menu(self):
-
+        """
+        Displays the main menu and routes the user's choice to the
+        appropriate method. Shows additional options if the user is an admin.
+        """
         # main menu loop
         while (True):
             # print meny
@@ -147,7 +186,12 @@ class ATM:
     # User withdraw money from own account
 
     def withdraw(self):
+        """
+        Processes a withdrawal request for the currently logged-in user.
 
+        Enforces a $500 limit per transaction, checks for sufficient funds,
+        and logs the transaction if successful.
+        """
         # make sure the user is logged in
         if not self._require_login():
             return
@@ -207,7 +251,11 @@ class ATM:
     # Deposit money into an account owned by the user
 
     def deposit(self):
+        """
+        Processes a deposit request for an account owned by the user.
 
+        Validates the deposit amount and updates the account balance.
+        """
         # Make sure the user is logged in
         if not self._require_login():
             return
@@ -249,7 +297,12 @@ class ATM:
     # Transfer money from one account to another
 
     def transfer(self):
+        """
+        Transfers money from a selected user account to a destination account.
 
+        Enforces standard transfer maximums ($1000) for non-admins and
+        checks for sufficient funds before executing.
+        """
         # Ensure the user is logged in
         if not self._require_login():
             return
@@ -317,7 +370,12 @@ class ATM:
 
     # Pay a bill from a selected account
     def paybill(self):
+        """
+        Pays a bill from a selected account to a specified company.
 
+        Requires a valid company code (EC, CQ, FI) and restricts the
+        maximum payment amount to $2000.
+        """
         # make sure the user is logged in
         if not self._require_login():
             return
@@ -373,6 +431,12 @@ class ATM:
     # (both new or existing)
 
     def create(self):
+        """
+        Creates a new account for a user (admin only function).
+
+        Validates the new account number, plan type, and initial balance,
+        then either attaches it to an existing user or creates a new user.
+        """
 
         # Make sure the user is an admin
         if not self._require_admin():
@@ -434,6 +498,11 @@ class ATM:
 
     # Admin only function to delete a users account
     def delete(self):
+        """
+        Deletes a specific user account (admin only function).
+
+        Removes the account from the user's account list if it exists.
+        """
 
         # Ensure the user is an admin
         if not self._require_admin():
@@ -470,6 +539,11 @@ class ATM:
 
     # Admin only function to disable an account
     def disable(self):
+        """
+        Disables a specific user account (admin only function).
+
+        Changes the status of an active account to disabled.
+        """
 
         # Ensure the user is an admin
         if not self._require_admin():
@@ -506,6 +580,11 @@ class ATM:
 
     # Admin only function to change the account plan
     def changeplan(self):
+        """
+        Changes the plan of a specific user account (admin only function).
+
+        Updates the account plan (e.g., to NP or SP).
+        """
 
         # Ensure user is an admin
         if not self._require_admin():
@@ -546,6 +625,13 @@ class ATM:
         print("ERROR: account not found for that user.")
 
     def make_output_file(self):
+        """
+        Generates an output log file of all transactions processed
+        in the current session.
+
+        Creates a new text file inside a 'transactions' folder labeled with
+        the current date and time.
+        """
 
         self.write_log(code="00", name="____________________",
                        number="_____", funds="00000000", misc="NA")
@@ -573,6 +659,12 @@ class ATM:
         return
 
     def load_accounts(self):
+        """
+        Loads accounts from the 'accounts.txt' file into the system.
+
+        Parses the fixed-width format lines to extract account number, name,
+        status, and balance, and builds internal User and Account objects.
+        """
         # open accounts file
         with open("accounts.txt") as file:
             # skip first line
@@ -633,6 +725,12 @@ class ATM:
     # Check to see if the user is logged in.
     # If yes return true, if not return false.
     def _require_login(self) -> bool:
+        """
+        Validates whether a user is currently logged in.
+
+        Returns:
+            bool: True if logged in, False otherwise.
+        """
         if not self.is_logged_in:
             print("ERROR: you must login first.")
             return False
@@ -640,6 +738,15 @@ class ATM:
 
     # Valiidation to ensure money is strictly > 0
     def _validate_positive_int(self, prompt: str):
+        """
+        Prompts the user for input and ensures it is a positive integer.
+
+        Args:
+            prompt (str): The message to display to the user.
+
+        Returns:
+            int or None: The parsed positive integer, or None if invalid.
+        """
         string = input(prompt).strip()
         try:
             amount = int(string)
@@ -653,6 +760,16 @@ class ATM:
 
     # Valiidation to ensure money is strictly > 0
     def _validate_positive_or_zero_int(self, prompt: str):
+        """
+        Prompts the user for input and ensures it is zero or a
+        positive integer.
+
+        Args:
+            prompt (str): The message to display to the user.
+
+        Returns:
+            int or None: The parsed non-negative integer, or None if invalid.
+        """
         string = input(prompt).strip()
         try:
             amount = int(string)
@@ -666,11 +783,26 @@ class ATM:
 
     # Checks if account is disabled. True = Yes, False = no
     def _is_account_disabled(self, account) -> bool:
+        """
+        Checks if a given account object is disabled.
+
+        Args:
+            account (Account): The account object to check.
+
+        Returns:
+            bool: True if the account is disabled, False otherwise.
+        """
         return not account.enabled
 
     # Helper function to ensure the user is an admin
     # (useful before admin functions)
     def _require_admin(self) -> bool:
+        """
+        Validates whether the current session has admin privileges.
+
+        Returns:
+            bool: True if the user is an admin, False otherwise.
+        """
         if not self._require_login():
             return False
         if not self.is_admin:
@@ -680,6 +812,15 @@ class ATM:
 
     # Find any users account based on the number
     def global_find_account_by_number(self, account_number: str):
+        """
+        Searches all users for an account matching the given account number.
+
+        Args:
+            account_number (str): The account number to look for.
+
+        Returns:
+            Account or None: The matching Account object, or None if not found.
+        """
         for user in self.users:
             for account in user.accounts:
                 if account.number == account_number:
@@ -687,6 +828,13 @@ class ATM:
         return None
 
     def get_current_user_account(self):
+        """
+        Prompts the user to select an account. Admin sessions must also
+        provide the account holder's name.
+
+        Returns:
+            Account: The selected Account object.
+        """
         # selected account is the account to return
         selected_account = None
         # selected user is the user who the account belongs to
@@ -751,6 +899,17 @@ class ATM:
     # method that writes a string representing a transaction
     # and adds it to the transaction list
     def write_log(self, code, name, number, funds, misc):
+        """
+        Formats transaction data into a string and appends it to the
+        internal transactions list for writing upon logout.
+
+        Args:
+            code (str): The transaction code (e.g., "01" for withdraw).
+            name (str): The account holder's name.
+            number (str): The account number.
+            funds (str): The transaction amount.
+            misc (str): Miscellaneous data (e.g., target account, company code)
+        """
         # write log string
         log = code + "_"
         log = log + name.ljust(20, '_') + "_"
@@ -762,6 +921,10 @@ class ATM:
         self.transactions.append(log)
 
     def account_file(self):
+        """
+        Writes all current account states to the 'accounts.txt' file in the
+        standard fixed-width format.
+        """
         with open('accounts.txt', 'w') as file:
             file.write("NNNNN_AAAAAAAAAAAAAAAAAAAA_S_PPPPPPPP\n")
             for i in self.users:
