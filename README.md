@@ -34,5 +34,6 @@ Script for the front end tests is under **/tests/test_cases/frontend/run_fronten
 
 First version of the Backend source code found in **main/backend**
 
-backend design documnet and uml diagram found in **Documentation**
+Backend design documnet can be found in **Documentation**
 
+Backend UML diagram can be found in **UML_diagram**
