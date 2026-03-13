@@ -64,7 +64,7 @@ class Backend():
         # perform the transactions on the accounts
         self.perform_transactions()
         # write the new accounts file
-        write_new_current_accounts(self.accounts_path)
+        write_new_current_accounts(self.accounts, self.accounts_path)
 
     # method that reads the transactions file and turns the contents into a
     # list of dictionaries where each line is a represented as dictionary
@@ -106,7 +106,7 @@ class Backend():
                 name = name.strip()
 
                 # trim off leading zeros of funds
-                funds = self.remove_leading_zeros(number)
+                funds = self.remove_leading_zeros(funds)
 
                 # create transaction dictionary
                 transaction = {"code": code,
@@ -209,7 +209,7 @@ class Backend():
                 # 08 - changeplan
                 elif (transaction["code"] == "08"):
                     # change account plan
-                    account["plan"] == transaction["misc"]
+                    account["plan"] = transaction["misc"]
                     # increment the total transactions
                     account["total_transactions"] += 1
 
@@ -220,7 +220,7 @@ class Backend():
                 # unknown transaction code
                 else:
                     log_constraint_error("The transaction code "
-                                         f"{transaction["code"]} "
+                                         f"{transaction['code']} "
                                          "does not match any known "
                                          "transaction codes",
                                          "main/backend/backend.py - "
@@ -243,7 +243,7 @@ class Backend():
         helper method that removes the leading zeros from Strings.
         """
         first_index = -1
-        match = re.serach(r'[^0]', number)
+        match = re.search(r'[^0]', number)
         if match:
             first_index = match.start()
 
@@ -262,11 +262,22 @@ def main():
     master_account_file_path = ""
     transactions_file_path = ""
 
-    # check for command line arguments
-    if len(sys.argv) > 1:
-        # set file paths as given paths
-        master_account_file_path = sys.argv[0]
-        transactions_file_path = sys.argv[1]
+    # If no command line args given, use set default file paths
+    if len(sys.argv) == 1:
+        master_account_file_path = "../data/master_account_file.txt"
+        transactions_file_path = "../transactions/transactions.txt"
+
+    # Otherwise accept command line args to set paths
+    else:
+        # catch situtation where python is run without the file arguments
+        if len(sys.argv) != 3:
+            print("Usage: python backend.py <master_account_file> "
+                  "<transactions_file>")
+            sys.exit(1)
+        else:
+            # set file paths as given paths
+            master_account_file_path = sys.argv[1]
+            transactions_file_path = sys.argv[2]
 
     # create Backend object
     backend = Backend(master_account_file_path, transactions_file_path)

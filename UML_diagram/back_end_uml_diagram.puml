@@ -1,0 +1,78 @@
+@startuml Back_End_System
+skinparam classAttributeIconSize 0
+
+title Backend UML Class Diagram
+
+class Backend {
+  - accounts_path : str
+  - transactions_path : str
+  - accounts : list[dict]
+  - transactions : list[dict]
+  --
+  + __init__(accounts_path, transactions_path)
+  + run()
+  + read_transactions(path)
+  + perform_transactions()
+  + remove_leading_zeros(number)
+}
+
+class ReadModule {
+  --
+  + read_old_bank_accounts(file_path)
+}
+
+class WriteModule {
+  --
+  + write_new_current_accounts(accounts, file_path)
+}
+
+class ErrorLogger {
+  --
+  + log_constraint_error(description, context, fatal=False)
+}
+
+class AccountRecord {
+  + account_number : str
+  + name : str
+  + status : str
+  + balance : float
+  + total_transactions : int
+  + plan : str
+}
+
+class TransactionRecord {
+  + code : str
+  + name : str
+  + account_number : str
+  + funds : str
+  + misc : str
+}
+
+Backend ..> ReadModule : uses
+Backend ..> WriteModule : uses
+Backend ..> ErrorLogger : uses
+Backend "1" o-- "0..*" AccountRecord : manages
+Backend "1" o-- "0..*" TransactionRecord : parses
+
+note right of Backend
+  Main backend controller.
+  Reads input files, performs transactions,
+  and writes the updated master account file.
+end note
+
+note bottom of ReadModule
+  Reads the master account file and
+  returns account records.
+end note
+
+note bottom of WriteModule
+  Writes updated account records to
+  the master account output file.
+end note
+
+note bottom of ErrorLogger
+  Prints fatal and non-fatal
+  backend error messages.
+end note
+
+@enduml
