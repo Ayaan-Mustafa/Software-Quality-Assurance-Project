@@ -12,10 +12,13 @@ def write_new_current_accounts(accounts, file_path):
     Where TT is account plan (SP or NP)
     """
     with open(file_path, 'w') as file:
+        # write Master Account file header
+        file.write("NNNNN_AAAAAAAAAAAAAAAAAAAA_S_PPPPPPPP_TTTT_MM\n")
+
         for acc in accounts:
             # Validate account number
             if (
-                not isinstance(acc['account_number'], str) or 
+                not isinstance(acc['account_number'], str) or
                 not acc['account_number'].isdigit()
             ):
                 raise ValueError(f"Account number must be numeric string, got "
@@ -55,9 +58,11 @@ def write_new_current_accounts(accounts, file_path):
             acc_num = acc['account_number'].zfill(5)
             name = acc['name'].ljust(20)[:20]
             balance = f"{acc['balance']:08.2f}"
+            transactions = str(acc["total_transactions"]).zfill(4)
 
             # Write line (37 chars + plan type = 39 chars total)
-            file.write(f"{acc_num} {name} {acc['status']} {balance} {plan}\n")
-        
+            file.write(f"{acc_num}_{name}_{acc['status']}"
+                       f"_{balance}_{transactions}_{plan}\n")
+
         # Add END_OF_FILE marker
-        file.write("00000 END_OF_FILE          A 00000.00 NP\n")
+        file.write("00000_END_OF_FILE__________A_00000.00_0000_NP")

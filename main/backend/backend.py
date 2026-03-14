@@ -100,13 +100,8 @@ class Backend():
                 # trim off leading 0 of number
                 number = self.remove_leading_zeros(number)
 
-                # remove and replace trailing underscores of name
-                name = re.sub(r'([_])\1+', r'\1', name,)
-                name = name.replace("_", " ")
-                name = name.strip()
-
                 # trim off leading zeros of funds
-                funds = self.remove_leading_zeros(funds)
+                funds = float(self.remove_leading_zeros(funds))
 
                 # create transaction dictionary
                 transaction = {"code": code,

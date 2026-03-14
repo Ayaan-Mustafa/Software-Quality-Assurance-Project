@@ -21,6 +21,7 @@ def read_old_bank_accounts(file_path):
     """
     accounts = []
     with open(file_path, 'r') as file:
+        # skip header of Master Account File
         next(file)
 
         for line_num, line in enumerate(file, 1):
@@ -36,11 +37,14 @@ def read_old_bank_accounts(file_path):
             try:
                 # Extract fields with positional validation
                 account_number = clean_line[0:5]
-                name = clean_line[6:25]  # 20 characters
+                name = clean_line[6:26]  # 20 characters
                 status = clean_line[27]
                 balance_str = clean_line[29:37]  # 8 characters
                 transactions_str = clean_line[38:42]  # 4 characters
                 plan_type = clean_line[43:45]  # 2 characters (SP/NP)
+
+                if name == "END_OF_FILE_________":
+                    continue
 
                 # Validate account number
                 if not account_number.isdigit():
