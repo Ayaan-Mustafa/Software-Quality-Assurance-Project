@@ -139,7 +139,7 @@ class Backend():
                     # remove funds from balance
                     account["balance"] -= transaction["funds"]
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 02 - transfer
                 elif (transaction["code"] == "02"):
@@ -154,21 +154,21 @@ class Backend():
                             # remove the funds from the account
                             transfer_account["balance"] += transaction["funds"]
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 03 - paybill
                 elif (transaction["code"] == "03"):
                     # remove funds from balance
                     account["balance"] -= transaction["funds"]
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 04 - deposit
                 elif (transaction["code"] == "04"):
                     # add funds to balance
                     account["balance"] += transaction["funds"]
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 05 - create
                 elif (transaction["code"] == "05"):
@@ -184,6 +184,8 @@ class Backend():
                     new_account["plan"] = transaction["misc"]
                     new_account["total"] = 0
 
+                    self.update_transactions(new_account)
+
                     # add account to list
                     self.accounts.append(new_account)
 
@@ -192,21 +194,21 @@ class Backend():
                     # add deleted accounts to delted list
                     deleted.append(transaction)
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 07 - disable
                 elif (transaction["code"] == "07"):
                     # set account status to disabled
                     account["status"] = "D"
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 08 - changeplan
                 elif (transaction["code"] == "08"):
                     # change account plan
                     account["plan"] = transaction["misc"]
                     # increment the total transactions
-                    account["total_transactions"] += 1
+                    self.update_transactions(account)
 
                 # 00 - end of session
                 elif (transaction["code"] == "00"):
@@ -243,6 +245,15 @@ class Backend():
             first_index = match.start()
 
         return number[first_index:]
+    
+    # helper method that updates the transaction count and
+    # applies the fees to the account
+    def update_transactions(self, account: dict):
+        account["total_transactions"] += 1
+        if account["plan"] == "SP":
+            account["balance"] -= 0.25
+        else:
+            account["balance"] -= 0.5
 
 
 # main
