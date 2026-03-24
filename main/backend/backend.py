@@ -3,6 +3,18 @@ The Backend of the banking application. Reads in the files in the
 Master Accounts file and the transactions in the daily transactions
 file, performs the operations on the accounts and then updates the
 Master Accounts File
+
+Inputs:
+Master Bank Accounts file, a txt file that stores all the bank
+accounts in specific format.
+
+Transactions file, a txt file that stores all the transactions
+from one session of the frontend in a specific method
+
+Run Instructions:
+run using basic python command. Have the option to supply the program
+with specific input files using command line inputs. Ths first file
+is the master bank accounts file, the second is the transaction file
 """
 
 
@@ -122,8 +134,6 @@ class Backend():
         applies the relevant transaction on each account based on the
         transaction code.
         """
-        # lists for holding accounts that wrere created/deleted
-        deleted = []
 
         # loop over accounts
         for account in self.accounts:
@@ -191,10 +201,8 @@ class Backend():
 
                 # 06 - delete
                 elif (transaction["code"] == "06"):
-                    # add deleted accounts to delted list
-                    deleted.append(transaction)
-                    # increment the total transactions
-                    self.update_transactions(account)
+                    # give account deleted flag
+                    account["name"] = "#DELETED#"
 
                 # 07 - disable
                 elif (transaction["code"] == "07"):
@@ -226,13 +234,8 @@ class Backend():
                                          False)
 
         # remove the deleted accounts from the list of accounts
-        for deleted_account in deleted:
-            for account in self.accounts:
-                if (
-                    deleted_account["account_number"]
-                    == account["account_number"]
-                ):
-                    self.accounts.remove(account)
+        self.accounts = list(filter(lambda x: x["name"] != "#DELETED#",
+                                    self.accounts))
 
     # helper method that removes the leading zeros from numeric fields
     def remove_leading_zeros(self, number):
@@ -245,7 +248,7 @@ class Backend():
             first_index = match.start()
 
         return number[first_index:]
-    
+
     # helper method that updates the transaction count and
     # applies the fees to the account
     def update_transactions(self, account: dict):
