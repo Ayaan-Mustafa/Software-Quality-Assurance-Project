@@ -1,0 +1,1 @@
+python ./main/backend/backend.py tests/test_cases/backend/perform_transactions/test1/accounts.txt ./tests/test_cases/backend/perform_transactions/test1/transactions.txt

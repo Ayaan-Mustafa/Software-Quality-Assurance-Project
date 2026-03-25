@@ -107,7 +107,7 @@ class Backend():
                 name = line[3:23]
                 number = line[24:29]
                 funds = line[30:38]
-                misc = line[39:]
+                misc = line[39:].replace("\n", "")
 
                 # trim off leading 0 of number
                 number = self.remove_leading_zeros(number)
@@ -153,11 +153,14 @@ class Backend():
 
                 # 02 - transfer
                 elif (transaction["code"] == "02"):
+                    to_account_number = self.remove_leading_zeros(
+                        transaction["misc"])
+
                     # find the account that the funds were transfered to
                     for transfer_account in self.accounts:
                         if (
                             transfer_account["account_number"]
-                            == transaction["misc"]
+                            == to_account_number
                         ):
                             # add the funds to the recipient account
                             account["balance"] -= transaction["funds"]
