@@ -98,6 +98,8 @@ class Backend():
         with open(path, "r") as file:
             # read each line in the file
             for line in file:
+                line = line.strip()
+
                 # if the line is the end of file line stop
                 if line == "00____________________________00000000_NA":
                     break
@@ -107,7 +109,7 @@ class Backend():
                 name = line[3:23]
                 number = line[24:29]
                 funds = line[30:38]
-                misc = line[39:].replace("\n", "")
+                misc = line[39:]
 
                 # trim off leading 0 of number
                 number = self.remove_leading_zeros(number)
@@ -136,105 +138,107 @@ class Backend():
         """
 
         # loop over accounts
-        for account in self.accounts:
-            # loop over transactions
-            for transaction in self.transactions:
-                # if the transaction does not involve account
-                if account["account_number"] != transaction["account_number"]:
-                    continue
+        for transaction in self.transactions:
+            if transaction["code"] == "00":
+                continue
 
-                # check transaction code
-                # 01 - withdraw
-                if (transaction["code"] == "01"):
-                    # remove funds from balance
-                    account["balance"] -= transaction["funds"]
-                    # increment the total transactions
-                    self.update_transactions(account)
+            # 05 - create perform transaction before main loop
+            if transaction["code"] == "05":
+                # create account dictionary
+                new_account = {}
 
-                # 02 - transfer
-                elif (transaction["code"] == "02"):
-                    to_account_number = self.remove_leading_zeros(
-                        transaction["misc"])
+                # add account fields
+                new_account["name"] = transaction["name"]
+                new_account["account_number"] \
+                    = transaction["account_number"]
+                new_account["status"] = "A"
+                new_account["balance"] = transaction["funds"]
+                new_account["plan"] = transaction["misc"]
+                new_account["total"] = 0
+                new_account["total_transactions"] = 0
 
-                    # find the account that the funds were transfered to
-                    for transfer_account in self.accounts:
-                        if (
-                            transfer_account["account_number"]
-                            == to_account_number
-                        ):
-                            # add the funds to the recipient account
-                            account["balance"] -= transaction["funds"]
-                            # remove the funds from the account
-                            transfer_account["balance"] += transaction["funds"]
-                    # increment the total transactions
-                    self.update_transactions(account)
+                self.update_transactions(new_account)
 
-                # 03 - paybill
-                elif (transaction["code"] == "03"):
-                    # remove funds from balance
-                    account["balance"] -= transaction["funds"]
-                    # increment the total transactions
-                    self.update_transactions(account)
+                # add account to list
+                self.accounts.append(new_account)
+                continue
 
-                # 04 - deposit
-                elif (transaction["code"] == "04"):
-                    # add funds to balance
-                    account["balance"] += transaction["funds"]
-                    # increment the total transactions
-                    self.update_transactions(account)
+            for account in self.accounts:
+                if account["account_number"] == transaction["account_number"]:
+                    # check transaction code
+                    # 01 - withdraw
+                    if (transaction["code"] == "01"):
+                        # remove funds from balance
+                        account["balance"] -= transaction["funds"]
+                        # increment the total transactions
+                        self.update_transactions(account)
 
-                # 05 - create
-                elif (transaction["code"] == "05"):
-                    # create account dictionary
-                    new_account = {}
+                    # 02 - transfer
+                    elif (transaction["code"] == "02"):
+                        to_account_number = self.remove_leading_zeros(
+                            transaction["misc"])
 
-                    # add account fields
-                    new_account["name"] = transaction["name"]
-                    new_account["account_number"] \
-                        = transaction["account_number"]
-                    new_account["status"] = "A"
-                    new_account["balance"] = transaction["funds"]
-                    new_account["plan"] = transaction["misc"]
-                    new_account["total"] = 0
+                        # find the account that the funds were transfered to
+                        for transfer_account in self.accounts:
+                            if (
+                                transfer_account["account_number"]
+                                == to_account_number
+                            ):
+                                # add the funds to the recipient account
+                                account["balance"] -= transaction["funds"]
+                                # remove the funds from the account
+                                transfer_account["balance"] +=\
+                                    transaction["funds"]
+                        # increment the total transactions
+                        self.update_transactions(account)
 
-                    self.update_transactions(new_account)
+                    # 03 - paybill
+                    elif (transaction["code"] == "03"):
+                        # remove funds from balance
+                        account["balance"] -= transaction["funds"]
+                        # increment the total transactions
+                        self.update_transactions(account)
 
-                    # add account to list
-                    self.accounts.append(new_account)
+                    # 04 - deposit
+                    elif (transaction["code"] == "04"):
+                        # add funds to balance
+                        account["balance"] += transaction["funds"]
+                        # increment the total transactions
+                        self.update_transactions(account)
 
-                # 06 - delete
-                elif (transaction["code"] == "06"):
-                    # give account deleted flag
-                    account["name"] = "#DELETED#"
+                    # 06 - delete
+                    elif (transaction["code"] == "06"):
+                        # give account deleted flag
+                        account["name"] = "#DELETED#"
 
-                # 07 - disable
-                elif (transaction["code"] == "07"):
-                    # set account status to disabled
-                    account["status"] = "D"
-                    # increment the total transactions
-                    self.update_transactions(account)
+                    # 07 - disable
+                    elif (transaction["code"] == "07"):
+                        # set account status to disabled
+                        account["status"] = "D"
+                        # increment the total transactions
+                        self.update_transactions(account)
 
-                # 08 - changeplan
-                elif (transaction["code"] == "08"):
-                    # change account plan
-                    account["plan"] = transaction["misc"]
-                    # increment the total transactions
-                    self.update_transactions(account)
+                    # 08 - changeplan
+                    elif (transaction["code"] == "08"):
+                        # change account plan
+                        account["plan"] = transaction["misc"]
+                        # increment the total transactions
+                        self.update_transactions(account)
 
-                # 00 - end of session
-                elif (transaction["code"] == "00"):
-                    continue
+                    # 00 - end of session
+                    elif (transaction["code"] == "00"):
+                        continue
 
-                # unknown transaction code
-                else:
-                    log_constraint_error("The transaction code "
-                                         f"{transaction['code']} "
-                                         "does not match any known "
-                                         "transaction codes",
-                                         "main/backend/backend.py - "
-                                         "Backend Class - "
-                                         "perform_transactions method ",
-                                         False)
+                    # unknown transaction code
+                    else:
+                        log_constraint_error("The transaction code "
+                                             f"{transaction['code']} "
+                                             "does not match any known "
+                                             "transaction codes",
+                                             "main/backend/backend.py - "
+                                             "Backend Class - "
+                                             "perform_transactions method ",
+                                             False)
 
         # remove the deleted accounts from the list of accounts
         self.accounts = list(filter(lambda x: x["name"] != "#DELETED#",
