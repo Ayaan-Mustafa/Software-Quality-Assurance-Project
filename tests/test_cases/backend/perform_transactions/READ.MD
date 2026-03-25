@@ -4,14 +4,14 @@ run the test by copying the command from the input.txt file located in each test
 
 | Name   | Goal                                                                   |
 | ------ | ---------------------------------------------------------------------- |
-| test1  | loop 0 times over accounts                                             |
-| test2  | loop 1 times over accounts                                             |
-| test3  | loop 2 times over accounts                                             |
-| test4  | loop many times over accounts                                          |
-| test5  | loop 0 times over transactions                                         |
-| test6  | loop 1 times over transactions                                         |
-| test7  | loop 2 times over transactions                                         |
-| test8  | loop many times over transactions                                      |
+| test1  | loop 0 times over transactions                                         |
+| test2  | loop 1 times over transactions                                         |
+| test3  | loop 2 times over transactions                                         |
+| test4  | loop many times over transactions                                      |
+| test5  | loop 0 times over accounts                                             |
+| test6  | loop 1 times over accounts                                             |
+| test7  | loop 2 times over accounts                                             |
+| test8  | loop many times over accounts                                          |
 | test9  | account number does not equal to the account number in the transaction |
 | test10 | account number does equal the account number in the transaction        |
 | test11 | transaction code equals “01”                                           |
