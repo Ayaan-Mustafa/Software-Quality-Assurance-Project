@@ -42,7 +42,7 @@ Backend UML diagram can be found in **UML_diagram**
 
 White box unit testing was done for both the `read_transactions()` and `perform_transactions()` methods in the Backend Classs in main/backend/backend.py. Statement coverage was done on `read_transactions()` and decision and loop coverage was done for `perform_transactions()`.
 
-the unit tests for `read_transactions()` can be found in **tests/test_cases/backend/read_transactions**.
+The unit tests for `read_transactions()` can be found in **tests/test_cases/backend/read_transactions**.
 
 The unit tests for `perform_transactions()` can be found in **test/test_cases/backend/perform_transactions**.
 
