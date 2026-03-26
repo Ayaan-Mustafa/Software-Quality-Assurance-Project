@@ -5,11 +5,15 @@ file, performs the operations on the accounts and then updates the
 Master Accounts File
 
 Inputs:
-Master Bank Accounts file, a txt file that stores all the bank
+Master Bank Accounts file path, a txt file that stores all the bank
 accounts in specific format.
 
-Transactions file, a txt file that stores all the transactions
+Transactions file path, a txt file that stores all the transactions
 from one session of the frontend in a specific method
+
+Outputs:
+modifies the Master Bank Accounts file by applying the transactions in
+the transactions file to them
 
 Run Instructions:
 run using basic python command. Have the option to supply the program
