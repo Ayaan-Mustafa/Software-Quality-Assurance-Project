@@ -1,4 +1,8 @@
 Statement coverage for read_transactions methon in Backend class in main/backend/backend.py
 
-- Test 1 is the test case for when the transaction file in the specified path does not exist
-- Test 2 is the test case for when the transaction file exists and is formatted correctly
+run the test by copying the command from the input.txt file located in each test directory and running it from the terminal in the root directory of the project
+
+| Test case                                       | Goal                                                                                  | On Success                                                                                                                                       |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Transaction file specified in path, does not exist  | Covers the conditional statement that logs an error when a transaction file doesn’t exist | The program throws the constraint error:<br><br>"transaction file does not exist, /main/backend/backend.py - Backend class - read transaction method" |
+| Transaction file exists, and is formatted correctly | This covers the rest of this method                                                       | The program completes normally                                                                                                                       |

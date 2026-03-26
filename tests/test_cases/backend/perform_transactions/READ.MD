@@ -2,25 +2,25 @@ decision and loop coverage for the perform_transactions method in Backend class 
 
 run the test by copying the command from the input.txt file located in each test directory and running it from the terminal in the root directory of the project
 
-| Name   | Goal                                                                   |
-| ------ | ---------------------------------------------------------------------- |
-| test1  | loop 0 times over transactions                                         |
-| test2  | loop 1 times over transactions                                         |
-| test3  | loop 2 times over transactions                                         |
-| test4  | loop many times over transactions                                      |
-| test5  | loop 0 times over accounts                                             |
-| test6  | loop 1 times over accounts                                             |
-| test7  | loop 2 times over accounts                                             |
-| test8  | loop many times over accounts                                          |
-| test9  | account number does not equal to the account number in the transaction |
-| test10 | account number does equal the account number in the transaction        |
-| test11 | transaction code equals “01”                                           |
-| test12 | transaction code equals “02”                                           |
-| test13 | transaction code equals “03”                                           |
-| test14 | transaction code equals “04”                                           |
-| test15 | transaction code equals “05”                                           |
-| test16 | transaction code equals “06”                                           |
-| test17 | transaction code equals “07”                                           |
-| test18 | transaction code equals “08”                                           |
-| test19 | transaction code equals “00”                                           |
-| test20 | invalid transaction code                                               |
+| Name |  Goal                                                               | On Success                                                                                                                                                                                                     |
+| -------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| test1    | Loop 0 times over transactions                                         | Program completes with no errors and no modifications to master accounts file                                                                                                                                      |
+| test2    | Loop 1 times over transactions                                         | Program completes with no errors and one modification to master accounts file                                                                                                                                      |
+| test3    | Loop 2 times over transactions                                         | Program completes with no errors and two modifications to master accounts file                                                                                                                                     |
+| test4    | Loop many times over transactions                                      | Program completes with no errors and modifies master accounts file                                                                                                                                                 |
+| test5    | Loop 0 times over accounts                                             | Program completes with no errors and no modifications to master accounts file                                                                                                                                      |
+| test6    | Loop 1 times over accounts                                             | program completes with no errors and processes at least one transaction                                                                                                                                            |
+| test7    | Loop 2 times over accounts                                             | Program completes with no errors and processes at least one transaction                                                                                                                                            |
+| test8    | Loop many times over accounts                                          | Program completes with no errors and processes at least one transaction                                                                                                                                            |
+| test9    | Account number does not Equal to the account number in the transaction | The program completes Normally and does not apply the transaction to other accounts                                                                                                                                |
+| test10   | Account number does equal the account number in the transaction        | The program completes normally and applies the transaction only to the correct account                                                                                                                             |
+| test11   | Transaction code equals “01”                                           | The program completes normally and applies the withdraw transaction to the correct account                                                                                                                         |
+| test12   | Transaction code equals “02”                                           | The program completes normally and applies the transfer transaction to the correct accounts                                                                                                                        |
+| test13   | Transaction code equals “03”                                           | The program completes normally and applies the paybill transaction to the correct account                                                                                                                          |
+| test14   | Transaction code equals “04”                                           | The program completes normally and applies the deposit transaction to the correct account                                                                                                                          |
+| test15   | Transaction code equals “05”                                           | The program completes normally and adds the created account to the end of the master accounts file                                                                                                                 |
+| test16   | Transaction code equals “06”                                           | The program completes normally and removes the deleted account from the master accounts file                                                                                                                       |
+| test17   | Transaction code equals “07”                                           | The program completes normally and applies the disable transaction to the correct account                                                                                                                          |
+| test18   | Transaction code equals “08”                                           | The program completes normally and applies the changeplan transaction to the correct account                                                                                                                       |
+| test19   | Transaction code equals “00”                                           | The program                                                                                                                                                                                                        |
+| test20   | Invalid transaction code                                               | The program throws the constraint error:<br><br>f"The transaction code {transaction['code']} does not match any known transaction codes, main/backend/backend.py - Backend Class - perform_transactions method " |
