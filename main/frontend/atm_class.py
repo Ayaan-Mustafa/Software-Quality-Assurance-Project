@@ -218,7 +218,7 @@ class ATM:
                 continue
 
             # if the amount is valid
-            if (amount <= 500 and amount <= account.balance):
+            if (amount <= 500.00 and amount <= account.balance):
                 # calculate new account balance
                 new_balance = account.balance - amount
 
@@ -278,7 +278,7 @@ class ATM:
             return
 
         # Update the balance
-        old_balance = int(account.balance)
+        old_balance = float(account.balance)
         new_balance = old_balance + amount
         account.balance = new_balance
 
@@ -349,13 +349,13 @@ class ATM:
             return
 
         # Make sure there is enough in the account
-        if amount > int(from_account.balance):
+        if amount > float(from_account.balance):
             print("ERROR: insufficient funds.")
             return
 
         # Update the accounts money
-        from_account.balance = int(from_account.balance) - amount
-        to_account.balance = int(to_account.balance) + amount
+        from_account.balance = float(from_account.balance) - amount
+        to_account.balance = float(to_account.balance) + amount
 
         print(f"Transfer successful: {amount}"
               f"from {from_account.number}"
@@ -405,17 +405,17 @@ class ATM:
             return
 
         # Make sure under max for bill
-        if amount > 2000:
+        if amount > 2000.00:
             print("ERROR: max paybill is $2000.")
             return
 
         # Make sure there is enough money in the account
-        if amount > int(account.balance):
+        if amount > float(account.balance):
             print("ERROR: insufficient funds.")
             return
 
         # Update the account balance
-        account.balance = int(account.balance) - amount
+        account.balance = float(account.balance) - amount
         # Output success
         print(
             f"Paybill successful: {amount} to {company} from {account.number}")
@@ -634,21 +634,21 @@ class ATM:
         """
 
         self.write_log(code="00", name="____________________",
-                       number="_____", funds="00000000", misc="NA")
+                       number="_____", funds="00000.00", misc="NA")
 
         # This is if we want it to create a new file for each log out, this
         # will name the files based on the date and time
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        folder_path = os.path.join(script_dir, "transactions")
+        # script_dir = os.path.dirname(os.path.abspath(__file__))
+        # folder_path = os.path.join(script_dir, "transactions")
 
         # This creates a folder, in case we dont want to push a full folder of
         # transactions to github
-        os.makedirs(folder_path, exist_ok=True)
+        # os.makedirs(folder_path, exist_ok=True)
 
         now = datetime.now()
         filename = now.strftime("transactions_%Y-%m-%d_%H-%M-%S.txt")
 
-        full_file_path = os.path.join(folder_path, filename)
+        full_file_path = os.path.join("data/transactions", filename)
 
         with open(full_file_path, "w") as file:
             for transaction in self.transactions:
@@ -666,14 +666,14 @@ class ATM:
         status, and balance, and builds internal User and Account objects.
         """
         # open accounts file
-        with open("accounts.txt") as file:
+        with open("data/accounts.txt") as file:
             # skip first line
             next(file)
 
             # read each line
             for line in file:
                 # skip last line
-                if (line == "00000_END_OF_FILE__________D_00000000\n"):
+                if (line == "00000_END_OF_FILE__________D_00000.00\n"):
                     break
 
                 # slice each line
@@ -705,7 +705,7 @@ class ATM:
                 balance = balance[first_index:]
 
                 # create account object
-                account = Account(name, number, int(balance), "NP", enabled)
+                account = Account(name, number, float(balance), "NP", enabled)
 
                 # check if the user the account belongs to is in the users list
                 in_list = False
@@ -749,11 +749,11 @@ class ATM:
         """
         string = input(prompt).strip()
         try:
-            amount = int(string)
+            amount = float(string)
         except ValueError:
             print("ERROR: invalid amount.")
             return None
-        if amount <= 0:
+        if amount <= 0.00:
             print("ERROR: amount must be > 0.")
             return None
         return amount
@@ -772,11 +772,11 @@ class ATM:
         """
         string = input(prompt).strip()
         try:
-            amount = int(string)
+            amount = float(string)
         except ValueError:
             print("ERROR: invalid amount.")
             return None
-        if amount < 0:
+        if amount < 0.00:
             print("ERROR: amount must zero or greater.")
             return None
         return amount
@@ -925,23 +925,23 @@ class ATM:
         Writes all current account states to the 'accounts.txt' file in the
         standard fixed-width format.
         """
-        with open('accounts.txt', 'w') as file:
+        with open('data/accounts.txt', 'w') as file:
             file.write("NNNNN_AAAAAAAAAAAAAAAAAAAA_S_PPPPPPPP\n")
             for i in self.users:
                 for account in i.accounts:
                     tempnumber = str(account.number)
-                    tempbalance = str(account.balance)
+                    tempbalance = f"{account.balance:08.2f}"
                     if (account.enabled):
                         file.write(
                             tempnumber.rjust(5, '0') + "_" +
                             account.name.ljust(20, '_') + '_A_' +
-                            tempbalance.rjust(8, '0') + '\n'
+                            tempbalance + '\n'
                         )
                     else:
                         file.write(
                             tempnumber.rjust(5, '0') + "_" +
                             account.name.ljust(20, '_') + '_D_' +
-                            tempbalance.rjust(8, '0') + '\n'
+                            tempbalance + '\n'
                         )
 
-            file.write("00000_END_OF_FILE__________D_00000000\n")
+            file.write("00000_END_OF_FILE__________D_00000.00\n")

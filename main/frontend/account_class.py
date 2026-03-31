@@ -27,7 +27,7 @@ class Account:
     # Class fields and default values
     name = "No_Name"
     number = "*****"
-    balance = 0
+    balance = 0.0
     plan = "NP"
     enabled = True
 
