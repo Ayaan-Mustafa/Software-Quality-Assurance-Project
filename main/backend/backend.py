@@ -106,7 +106,7 @@ class Backend():
 
                 # if the line is the end of file line stop
                 if line == "00____________________________00000000_NA":
-                    break
+                    continue
 
                 # slice each line
                 code = line[:2]

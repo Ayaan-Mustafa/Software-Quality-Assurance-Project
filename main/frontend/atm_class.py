@@ -648,13 +648,15 @@ class ATM:
         now = datetime.now()
         filename = now.strftime("transactions_%Y-%m-%d_%H-%M-%S.txt")
 
-        full_file_path = os.path.join("data/transactions", filename)
+        full_file_path = os.path.join("data/session_transactions", filename)
 
         with open(full_file_path, "w") as file:
             for transaction in self.transactions:
                 file.write(transaction + "\n")
 
         print(f"Saved to: {full_file_path}")
+
+        self.transactions = []
 
         return
 
