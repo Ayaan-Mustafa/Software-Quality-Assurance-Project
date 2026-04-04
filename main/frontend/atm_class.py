@@ -640,15 +640,6 @@ class ATM:
         self.write_log(code="00", name="____________________",
                        number="_____", funds="00000.00", misc="NA")
 
-        # This is if we want it to create a new file for each log out, this
-        # will name the files based on the date and time
-        # script_dir = os.path.dirname(os.path.abspath(__file__))
-        # folder_path = os.path.join(script_dir, "transactions")
-
-        # This creates a folder, in case we dont want to push a full folder of
-        # transactions to github
-        # os.makedirs(folder_path, exist_ok=True)
-
         now = datetime.now()
         filename = now.strftime("transactions_%Y-%m-%d_%H-%M-%S.txt")
 
@@ -658,6 +649,8 @@ class ATM:
             for transaction in self.transactions:
                 file.write(transaction + "\n")
 
+        # added time sleep so that multiple transaction 
+        # files dont have the same name
         time.sleep(1)
 
         print(f"Saved to: {full_file_path}")
