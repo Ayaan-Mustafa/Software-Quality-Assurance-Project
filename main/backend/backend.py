@@ -284,20 +284,24 @@ def main():
 
     # If no command line args given, use set default file paths
     if len(sys.argv) == 1:
-        master_account_file_path = "../data/master_account_file.txt"
-        transactions_file_path = "../transactions/transactions.txt"
+        master_account_file_path = "data/master_account_file.txt"
+        transactions_file_path = "data/daily_transactions/transactions.txt"
 
     # Otherwise accept command line args to set paths
     else:
-        # catch situtation where python is run without the file arguments
-        if len(sys.argv) != 3:
-            print("Usage: python backend.py <master_account_file> "
-                  "<transactions_file>")
-            sys.exit(1)
-        else:
+        # if only transaction file path is given
+        if len(sys.argv) == 2:
+            transactions_file_path = sys.argv[1]
+        # if both master_accounts file and transaction file path given
+        elif len(sys.argv) == 3:
             # set file paths as given paths
             master_account_file_path = sys.argv[1]
             transactions_file_path = sys.argv[2]
+        # catch situtation where python is run without the file arguments
+        else:
+            print("Usage: python backend.py <master_account_file> "
+                  "<transactions_file>")
+            sys.exit(1)
 
     # create Backend object
     backend = Backend(master_account_file_path, transactions_file_path)
