@@ -279,12 +279,11 @@ def main():
     """
 
     # default file paths
-    master_account_file_path = ""
+    master_account_file_path = "data/master_account_file.txt"
     transactions_file_path = ""
 
     # If no command line args given, use set default file paths
     if len(sys.argv) == 1:
-        master_account_file_path = "data/master_account_file.txt"
         transactions_file_path = "data/daily_transactions/transactions.txt"
 
     # Otherwise accept command line args to set paths

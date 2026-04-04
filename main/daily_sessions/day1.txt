@@ -3,9 +3,11 @@ y
 Carl
 6
 SP
-6
-John
-9
+5
+Alex
+11
+NP
+500
 q
 n
 n

@@ -2,6 +2,7 @@
 import sys
 import re
 import os
+import time
 from datetime import datetime
 from user_class import User
 from account_class import Account
@@ -62,7 +63,8 @@ class ATM:
         check_admin = True
         while (check_admin):
             # user input
-            session = input("Is this an admin session (Y/n)?: ").lower()
+            session = input("Is this an admin session (Y/n)?: ").strip(
+                ).lower()
 
             # if user is admin set is_admin as true and break loop
             if (session == "y"):
@@ -73,7 +75,7 @@ class ATM:
                 check_admin = False
             # if user entered incorrect input ask again
             else:
-                print("Error Inavalid Input")
+                print("Error Invalid Input")
 
         # if the user is admin skip asking for name
         if (self.is_admin):
@@ -85,7 +87,7 @@ class ATM:
         check_user = True
         while (check_user):
             # user input
-            name = input("Please enter user name: ")
+            name = input("Please enter user name: ").strip()
 
             # check user input against all users in system
             for user in self.users:
@@ -125,7 +127,8 @@ class ATM:
         print("Session ended. Logged out successfully.")
         check_exit = True
         while (check_exit):
-            ans = input("Do you wish to exit the program (Y/n)?: ").lower()
+            ans = input("Do you wish to exit the program (Y/n)?: ").strip(
+                ).lower()
 
             if (ans == "y"):
                 sys.exit()
@@ -159,7 +162,8 @@ class ATM:
             print("Q. Logout")
 
             # user input
-            choice = input("Please enter your chosen operation: ").lower()
+            choice = input("Please enter your chosen operation: ").strip(
+                ).lower()
 
             # match input to choice
             if (choice == "1"):
@@ -654,6 +658,8 @@ class ATM:
             for transaction in self.transactions:
                 file.write(transaction + "\n")
 
+        time.sleep(1)
+
         print(f"Saved to: {full_file_path}")
 
         self.transactions = []
@@ -853,7 +859,7 @@ class ATM:
             # ask for name until valid name is inputed
             while (check_name):
                 # user input
-                name = input("Enter name of account holder: ")
+                name = input("Enter name of account holder: ").strip()
 
                 # check if user is in list
                 for user in self.users:
@@ -878,7 +884,7 @@ class ATM:
         # ask for account number until valid number is inputed
         while (check_number):
             # user inpu
-            number = input("Enter the account number: ")
+            number = input("Enter the account number: ").strip()
 
             # loop over acconts held by user
             for account in selected_user.accounts:
