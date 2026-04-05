@@ -649,7 +649,7 @@ class ATM:
             for transaction in self.transactions:
                 file.write(transaction + "\n")
 
-        # added time sleep so that multiple transaction 
+        # added time sleep so that multiple transaction
         # files dont have the same name
         time.sleep(1)
 
