@@ -236,8 +236,8 @@ class ATM:
                                     == account.number):
                                 # print transaction
                                 print(f"{account.balance}"
-                                      f"- {amount}"
-                                      f"= {new_balance}")
+                                      f" - {amount}"
+                                      f" = {new_balance}")
                                 # change the account balance
                                 self.users[i].accounts[j].balance = new_balance
                                 # print message
@@ -246,7 +246,7 @@ class ATM:
                                 self.write_log(code="01",
                                                name=account.name,
                                                number=account.number,
-                                               funds=str(new_balance),
+                                               funds=str(amount),
                                                misc="NA")
                                 return
             else:
@@ -674,7 +674,7 @@ class ATM:
             # read each line
             for line in file:
                 # skip last line
-                if (line == "00000_END_OF_FILE__________D_00000.00\n"):
+                if (line == "00000_END_OF_FILE__________D_00000.00"):
                     break
 
                 # slice each line
@@ -945,4 +945,4 @@ class ATM:
                             tempbalance + '\n'
                         )
 
-            file.write("00000_END_OF_FILE__________D_00000.00\n")
+            file.write("00000_END_OF_FILE__________D_00000.00")
