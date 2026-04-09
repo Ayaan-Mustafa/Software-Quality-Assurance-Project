@@ -49,3 +49,26 @@ The unit tests for `perform_transactions()` can be found in **test/test_cases/ba
 Each directory has a read.md file that outlines what each test aims to achieve and run instructions
 
 The failure log can be found in the **Documentation** directory in the `Phase  5 - Back End Unit Testing.pdf` file
+
+
+## Phase 6
+
+The Phase 6 shell scripts are found in **main/daily.sh** and **main/weekly.sh**.
+
+The daily session input files used for the weekly simulation can be found in **main/daily_sessions**.
+
+Before running the scripts, navigate to the **main** directory.
+
+The Front End and Back End are run as separate programs through the shell scripts, and the session transaction files are written to and read from the **data** directory.
+
+For the Daily script:
+
+- run `./daily.sh` to provide transaction input through the terminal
+- run `./daily.sh daily_sessions/<file_name>.txt` to execute a day using a prepared session input file
+- the script runs the Front End, saves the individual session transaction files, merges them into a daily transaction file, and then runs the Back End on the merged file
+
+For the Weekly script:
+
+- run `./weekly.sh`
+- the script is set up to run the Daily script seven times using the session files in **main/daily_sessions**
+- each day simulates one day of banking activity using a different transaction session file
