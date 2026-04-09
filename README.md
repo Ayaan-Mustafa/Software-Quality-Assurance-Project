@@ -57,6 +57,8 @@ The Phase 6 shell scripts are found in **main/daily.sh** and **main/weekly.sh**.
 
 The daily session input files used for the weekly simulation can be found in **main/daily_sessions**.
 
+The daily session input file descriptions can be found under **Documentation/** in a file "Phase 6 - Integration & Delivery.pdf"
+
 Before running the scripts, navigate to the **main** directory.
 
 The Front End and Back End are run as separate programs through the shell scripts, and the session transaction files are written to and read from the **data** directory.
