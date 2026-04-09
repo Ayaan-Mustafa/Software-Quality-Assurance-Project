@@ -74,3 +74,5 @@ For the Weekly script:
 - run `./weekly.sh`
 - the script is set up to run the Daily script seven times using the session files in **main/daily_sessions**
 - each day simulates one day of banking activity using a different transaction session file
+
+**NOTE:** the sessions found in **main/daily_sessions** are meant to run on the versions of **accounts.txt** and **master_accounts.txt** found in **documentation/before_sessions** make sure to copy and paste the contents of these files into **accounts.txt** and **master_accounts.txt** in **main/data**
